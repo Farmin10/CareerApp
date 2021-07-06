@@ -57,7 +57,7 @@ namespace career.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            ;
+
             if (!await _authService.UserExists(userForRegisterDto.UserName))
             {
                 return BadRequest();

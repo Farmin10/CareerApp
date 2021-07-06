@@ -53,12 +53,11 @@ namespace career.DAL.DataAccess.EntityFramework
 
         public Task<T> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.SingleOrDefaultAsync();
+            return _dbSet.FirstOrDefaultAsync(predicate);
         }
 
         public void Update(T entity)
         {
-            _context.Entry(entity).State = EntityState.Deleted;
             _dbSet.Update(entity);
         }
 

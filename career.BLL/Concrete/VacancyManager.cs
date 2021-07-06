@@ -146,26 +146,36 @@ namespace career.BLL.Concrete
             #endregion
 
             #region VacancyInfoUpdate
-            var vacancyInfoId = _unitOfWork.VacancyInformationDal.Get().FirstOrDefault(x => x.VacancyId == mappedVacancy.VacancyId).VacancyInfoId;
+            
             List<VacancyInformationUpdateDto> vacancyInformationUpdateDtos = vacancyUpdateDto.VacancyInformationUpdateDtos;
             var mappedInformation = _mapper.Map<List<VacancyInformation>>(vacancyInformationUpdateDtos);
             foreach (var item in mappedInformation)
             {
-                item.VacancyId = vacancyUpdateDto.VacancyId;
-                item.VacancyInfoId = vacancyInfoId;
-                _unitOfWork.VacancyInformationDal.Update(item);
+                var vacancyInfo = _unitOfWork.VacancyInformationDal.Get().Where(x => x.VacancyId == mappedVacancy.VacancyId);
+                foreach (var list in vacancyInfo)
+                {
+                    item.VacancyId = vacancyUpdateDto.VacancyId;
+                    item.VacancyInfoId = list.VacancyInfoId;
+                    _unitOfWork.VacancyInformationDal.Update(item);
+                }
+               
             }
             #endregion
 
             #region VacancyReqirementUpdate
-            var vacancyRequiremntId = _unitOfWork.VacancyRequirementDal.Get().FirstOrDefault(x => x.VacancyId == mappedVacancy.VacancyId).VacancyRequirementId;
+            
             List<VacancyRequirementUpdateDto> vacancyRequirementUpdateDtos = vacancyUpdateDto.VacancyRequirementUpdateDtos;
             var mappedRequirement = _mapper.Map<List<VacancyRequirement>>(vacancyRequirementUpdateDtos);
             foreach (var item in mappedRequirement)
             {
-                item.VacancyId = vacancyUpdateDto.VacancyId;
-                item.VacancyRequirementId = vacancyRequiremntId;
-                _unitOfWork.VacancyRequirementDal.Update(item);
+                var vacancyRequiremnt = _unitOfWork.VacancyRequirementDal.Get().Where(x => x.VacancyId == mappedVacancy.VacancyId);
+                foreach (var list in vacancyRequiremnt)
+                {
+                    item.VacancyId = vacancyUpdateDto.VacancyId;
+                    item.VacancyRequirementId = list.VacancyRequirementId;
+                    _unitOfWork.VacancyRequirementDal.Update(item);
+                }
+                
             }
             #endregion
 

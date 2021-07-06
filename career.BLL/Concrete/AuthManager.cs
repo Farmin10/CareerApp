@@ -49,7 +49,7 @@ namespace career.BLL.Concrete
 
         public async Task<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = await _userService.GetByUserName(userForLoginDto.UserName);
+            var userToCheck = _userService.GetByUserName(userForLoginDto.UserName);
             if (userToCheck == null)
             {
                 return userToCheck;
@@ -65,7 +65,7 @@ namespace career.BLL.Concrete
 
         public async Task<bool> UserExists(string userName)
         {
-            if (await _userService.GetByUserName(userName) != null)
+            if (_userService.GetByUserName(userName) != null)
             {
                 return false ;
             }

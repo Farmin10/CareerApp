@@ -12,7 +12,7 @@ namespace career.BLL.Abstract
     public interface IUserService
     {
         Task Add(User user);
-        Task<User> GetByUserName(string userName);
+        User GetByUserName(string userName);
         User UpdateUser(UserForUpdateDto userForUpdateDto,string password);
     }
 }

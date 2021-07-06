@@ -72,7 +72,7 @@ namespace career.API.Controllers
         [HttpGet("getEmployeesWithFilter")]
         public IActionResult GetAllWithFilter()
         {
-            var result = _vacancyService.GetAllWithFilter();
+            var result = _employeeService.GetAllWithFilter();
             return Ok(result);
         }
 
@@ -85,7 +85,7 @@ namespace career.API.Controllers
         [HttpGet("getVacanciesWithFilter")]
         public IActionResult GetVacanciesWithFilter()
         {
-            var result = _employeeService.GetAllWithFilter();
+            var result = _vacancyService.GetAllWithFilter();
             return Ok(result);
         }
     }

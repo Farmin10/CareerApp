@@ -28,9 +28,9 @@ namespace career.BLL.Concrete
             await _unitOfWork.UserDal.AddAsync(user);
         }
 
-        public async Task<User> GetByUserName(string userName)
+        public User GetByUserName(string userName)
         {
-            return await  _unitOfWork.UserDal.GetAsync(u => u.UserName == userName);
+            return _unitOfWork.UserDal.Get(u => u.UserName == userName).FirstOrDefault();
         }
 
         public User UpdateUser(UserForUpdateDto userForUpdateDto,string password)
