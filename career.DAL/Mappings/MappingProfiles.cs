@@ -95,6 +95,7 @@ namespace career.DAL.Mappings
 
             CreateMap<Vacancy, VacancyUpdateDto>().ReverseMap();
             CreateMap<Vacancy, VacancyForUpdateResponse>().ReverseMap();
+            CreateMap<Vacancy, VacancyForAddResponse>().ReverseMap();
             CreateMap<Vacancy, VacancyAddDto>().ReverseMap();
             CreateMap<Vacancy, VacanciesDto>().ReverseMap();
             CreateMap<Vacancy, VacancyDeleteDto>().ReverseMap();

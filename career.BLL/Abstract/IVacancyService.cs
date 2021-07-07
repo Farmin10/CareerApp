@@ -1,7 +1,6 @@
 ﻿using career.DTO.Responces;
 using career.DTO.Utility;
 using career.DTO.VacancyDTO;
-using career.Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +14,8 @@ namespace career.BLL.Abstract
         List<VacanciesDto> GetVacancies();
         List<FilterDTO> GetAllWithFilter();
         VacanciesDto GetVacancyById(int id);
-        VacancyAddDto AddVacancy(VacancyAddDto vacancyAddDto);
-        Vacancy UpdateVacancy(VacancyUpdateDto vacancyUpdateDto);
+        VacancyForAddResponse AddVacancy(VacancyAddDto vacancyAddDto);
+        VacancyForUpdateResponse UpdateVacancy(VacancyUpdateDto vacancyUpdateDto);
         void DeleteVacancy(int id);
     }
 }

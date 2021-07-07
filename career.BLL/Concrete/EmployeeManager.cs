@@ -32,7 +32,7 @@ namespace career.BLL.Concrete
             var mappedEmployee = _mapper.Map<Employee>(employeeAddDto);
             _unitOfWork.EmployeeDal.Add(mappedEmployee);
             _unitOfWork.Commit();
-            var mapped = _unitOfWork.EmployeeDal.Get().SingleOrDefault(x => x.EmployeeId == mappedEmployee.EmployeeId);
+            var mapped = _unitOfWork.EmployeeDal.GetAll().SingleOrDefault(x => x.EmployeeId == mappedEmployee.EmployeeId);
             var result = _mapper.Map<GetEmployeeDto>(mapped);
             return result;
         }
