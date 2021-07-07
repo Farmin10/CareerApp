@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using career.DTO.Utility;
+using career.DTO.Responces;
 
 namespace career.BLL.Concrete
 {
@@ -137,7 +138,7 @@ namespace career.BLL.Concrete
             #endregion
         }
 
-        public VacancyUpdateDto UpdateVacancy(VacancyUpdateDto vacancyUpdateDto)
+        public Vacancy UpdateVacancy(VacancyUpdateDto vacancyUpdateDto)
         {
             #region VacancyUpdate
             var mappedVacancy = _mapper.Map<Vacancy>(vacancyUpdateDto);
@@ -146,7 +147,11 @@ namespace career.BLL.Concrete
             #endregion
 
             #region VacancyInfoUpdate
-            
+            var deletedInfo= _unitOfWork.VacancyInformationDal.Get(x=>x.VacancyId==vacancyUpdateDto.VacancyId);
+            foreach (var item in deletedInfo)
+            {
+                _unitOfWork.VacancyInformationDal.Delete(item);
+            }
             List<VacancyInformationUpdateDto> vacancyInformationUpdateDtos = vacancyUpdateDto.VacancyInformationUpdateDtos;
             var mappedInformation = _mapper.Map<List<VacancyInformation>>(vacancyInformationUpdateDtos);
             foreach (var item in mappedInformation)
@@ -156,14 +161,19 @@ namespace career.BLL.Concrete
                 {
                     item.VacancyId = vacancyUpdateDto.VacancyId;
                     item.VacancyInfoId = list.VacancyInfoId;
-                    _unitOfWork.VacancyInformationDal.Update(item);
+                    _unitOfWork.VacancyInformationDal.Add(item);
                 }
                
             }
             #endregion
 
             #region VacancyReqirementUpdate
-            
+            var deletedRequirements = _unitOfWork.VacancyRequirementDal.Get(x => x.VacancyId == vacancyUpdateDto.VacancyId);
+            foreach (var item in deletedRequirements)
+            {
+                _unitOfWork.VacancyRequirementDal.Delete(item);
+               
+            }
             List<VacancyRequirementUpdateDto> vacancyRequirementUpdateDtos = vacancyUpdateDto.VacancyRequirementUpdateDtos;
             var mappedRequirement = _mapper.Map<List<VacancyRequirement>>(vacancyRequirementUpdateDtos);
             foreach (var item in mappedRequirement)
@@ -173,15 +183,14 @@ namespace career.BLL.Concrete
                 {
                     item.VacancyId = vacancyUpdateDto.VacancyId;
                     item.VacancyRequirementId = list.VacancyRequirementId;
-                    _unitOfWork.VacancyRequirementDal.Update(item);
+                    _unitOfWork.VacancyRequirementDal.Add(item);
                 }
                 
             }
             #endregion
-
             _unitOfWork.Commit();
-
-            return vacancyUpdateDto;
+            var mapped = _unitOfWork.VacancyDal.GetVacancies().SingleOrDefault(x=>x.VacancyId==vacancyUpdateDto.VacancyId);
+            return mapped;
         }
     }
 }

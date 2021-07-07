@@ -37,8 +37,7 @@ namespace career.DAL.DataAccess.EntityFramework
 
         public void Delete(T entity)
         {
-            T existing = _dbSet.Find(entity);
-            if (existing != null) _dbSet.Remove(existing);
+             _dbSet.Remove(entity);
         }
 
         public List<T> Get()

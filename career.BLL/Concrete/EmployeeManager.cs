@@ -32,7 +32,7 @@ namespace career.BLL.Concrete
             var mappedEmployee = _mapper.Map<Employee>(employeeAddDto);
             _unitOfWork.EmployeeDal.Add(mappedEmployee);
             _unitOfWork.Commit();
-            var mapped = _unitOfWork.EmployeeDal.GetAll().SingleOrDefault(x => x.EmployeeId == mappedEmployee.EmployeeId);
+            var mapped = _unitOfWork.EmployeeDal.Get().SingleOrDefault(x => x.EmployeeId == mappedEmployee.EmployeeId);
             var result = _mapper.Map<GetEmployeeDto>(mapped);
             return result;
         }
@@ -61,12 +61,14 @@ namespace career.BLL.Concrete
             return mappedEmployee;
         }
 
-        public UpdateEmployeeDto UpdateEmployee(UpdateEmployeeDto updateEmployeeDto)
+        public GetEmployeeDto UpdateEmployee(UpdateEmployeeDto updateEmployeeDto)
         {
             var mappedEmployee = _mapper.Map<Employee>(updateEmployeeDto);
             _unitOfWork.EmployeeDal.Update(mappedEmployee);
             _unitOfWork.Commit();
-            return updateEmployeeDto;
+            var updatedEmployee = _unitOfWork.EmployeeDal.GetAll().SingleOrDefault(x => x.EmployeeId == mappedEmployee.EmployeeId);
+            var result = _mapper.Map<GetEmployeeDto>(updatedEmployee);
+            return result;
         }
     }
 }

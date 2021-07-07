@@ -9,6 +9,6 @@ namespace career.BLL.Abstract
 {
     public interface IVacancyRequirementService
     {
-        //void AddVacancyRequirements(List<VacancyRequirementAddDto> vacancyRequirementAddDtos);
+        void DeleteVacancyRequirement(int id);
     }
 }

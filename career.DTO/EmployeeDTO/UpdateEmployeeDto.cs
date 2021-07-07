@@ -14,6 +14,7 @@ namespace career.DTO.EmployeeDTO
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public int? DepartmantId { get; set; }
+        public string  PicturePath { get; set; }
         public int PositionId { get; set; }
         public string Pin { get; set; }
     }

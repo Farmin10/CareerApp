@@ -1,4 +1,5 @@
 ﻿using career.DAL.Utilities.Security.JWT;
+using career.DTO.Responces;
 using career.DTO.UserDTO;
 using career.Entity.Concrete;
 using System;
@@ -11,7 +12,7 @@ namespace career.BLL.Abstract
 {
     public interface IAuthService
     {
-        Task<User> Register(UserForRegisterDto userForRegisterDto, string password);
+        Task<UserForAddResponse> Register(UserForRegisterDto userForRegisterDto, string password);
         List<UserForGetDto> GetUsers();
         Task<User> Login(UserForLoginDto userForLoginDto);
         Task<bool> UserExists(string userName);

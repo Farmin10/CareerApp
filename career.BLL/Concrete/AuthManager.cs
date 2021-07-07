@@ -4,6 +4,7 @@ using career.BLL.Constants;
 using career.DAL.DataAccess;
 using career.DAL.Utilities.Security.Hashing;
 using career.DAL.Utilities.Security.JWT;
+using career.DTO.Responces;
 using career.DTO.UserDTO;
 using career.DTO.Utility;
 using career.Entity.Concrete;
@@ -30,7 +31,7 @@ namespace career.BLL.Concrete
             _mapper = mapper;
         }
 
-        public async Task<User> Register(UserForRegisterDto userForRegisterDto, string password)
+        public async Task<UserForAddResponse> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -44,7 +45,9 @@ namespace career.BLL.Concrete
             };
             await _userService.Add(user);
             _unitOfWork.Commit();
-            return   user;
+            var mapped = _unitOfWork.UserDal.GetUsers().SingleOrDefault(x => x.UserId == user.UserId);
+            var result = _mapper.Map<UserForAddResponse>(mapped);
+            return result;
         }
 
         public async Task<User> Login(UserForLoginDto userForLoginDto)

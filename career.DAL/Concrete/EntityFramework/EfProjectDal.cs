@@ -21,7 +21,8 @@ namespace career.DAL.Concrete.EntityFramework
 
         public List<Project> GetAll()
         {
-            return _context.Projects.Include(x => x.Pictures).ToList();
+           var result = _context.Projects.Include(x => x.Pictures).ToList();
+            return result;
         }
     }
 }

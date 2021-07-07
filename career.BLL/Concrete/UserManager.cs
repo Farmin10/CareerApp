@@ -2,6 +2,7 @@
 using career.BLL.Abstract;
 using career.DAL.DataAccess;
 using career.DAL.Utilities.Security.Hashing;
+using career.DTO.Responces;
 using career.DTO.UserDTO;
 using career.Entity.Concrete;
 using System;
@@ -33,25 +34,22 @@ namespace career.BLL.Concrete
             return _unitOfWork.UserDal.Get(u => u.UserName == userName).FirstOrDefault();
         }
 
-        public User UpdateUser(UserForUpdateDto userForUpdateDto,string password)
+        public UserForUpdateResponse UpdateUser(UserForUpdateDto userForUpdateDto,string password)
         {
 
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
             var result = _unitOfWork.UserDal.Get(x => x.UserId == userForUpdateDto.UserId).FirstOrDefault();
-
-
             result.EmployeeId = userForUpdateDto.EmployeeId;
             result.UserName = userForUpdateDto.UserName;
             result.PasswordHash = passwordHash;
             result.PasswordSalt = passwordSalt;
-            
-            
             _unitOfWork.UserDal.Update(result);
-
-
             _unitOfWork.Commit();
-            return result;
+
+            var mappedUser = _unitOfWork.UserDal.GetUsers().SingleOrDefault(x => x.UserId == result.UserId);
+            var response = _mapper.Map<UserForUpdateResponse>(mappedUser);
+            return response;
         }
     }
 }

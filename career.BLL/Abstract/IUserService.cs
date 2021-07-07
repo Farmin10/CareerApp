@@ -1,4 +1,5 @@
-﻿using career.DTO.UserDTO;
+﻿using career.DTO.Responces;
+using career.DTO.UserDTO;
 using career.Entity.Concrete;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,6 @@ namespace career.BLL.Abstract
     {
         Task Add(User user);
         User GetByUserName(string userName);
-        User UpdateUser(UserForUpdateDto userForUpdateDto,string password);
+        UserForUpdateResponse UpdateUser(UserForUpdateDto userForUpdateDto,string password);
     }
 }

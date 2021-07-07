@@ -3,8 +3,10 @@ using career.DTO;
 using career.DTO.DepartmantDTO;
 using career.DTO.EmployeeDTO;
 using career.DTO.FileDTO;
+using career.DTO.PictureDTO;
 using career.DTO.PositionDTO;
 using career.DTO.ProjectDTO;
+using career.DTO.Responces;
 using career.DTO.UserDTO;
 using career.DTO.Utility;
 using career.DTO.VacancyDTO;
@@ -44,6 +46,8 @@ namespace career.DAL.Mappings
 
 
             CreateMap<User, UserForGetDto>().ReverseMap();
+            CreateMap<User, UserForAddResponse>().ReverseMap();
+            CreateMap<User, UserForUpdateResponse>().ReverseMap();
             CreateMap<UserForGetDto, FilterDTO>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(a => a.UserId))
                 .ForMember(x => x.Value, opt => opt.MapFrom(a => a.UserName));
@@ -76,6 +80,7 @@ namespace career.DAL.Mappings
 
 
             CreateMap<Picture, PictureForAddDto>().ReverseMap();
+            CreateMap<Picture, PictureForGetDto>().ReverseMap();
 
 
 
@@ -89,6 +94,7 @@ namespace career.DAL.Mappings
 
 
             CreateMap<Vacancy, VacancyUpdateDto>().ReverseMap();
+            CreateMap<Vacancy, VacancyForUpdateResponse>().ReverseMap();
             CreateMap<Vacancy, VacancyAddDto>().ReverseMap();
             CreateMap<Vacancy, VacanciesDto>().ReverseMap();
             CreateMap<Vacancy, VacancyDeleteDto>().ReverseMap();
