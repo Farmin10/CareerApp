@@ -82,6 +82,7 @@ namespace career.DAL.Mappings
 
 
             CreateMap<Project, ProjectForAddDto>().ReverseMap();
+            CreateMap<Project, ProjectForGetDto>().ReverseMap();
 
 
 

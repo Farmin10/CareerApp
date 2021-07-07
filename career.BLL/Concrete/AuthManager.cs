@@ -83,14 +83,7 @@ namespace career.BLL.Concrete
             var result = _unitOfWork.UserDal.GetUsers();
 
             var mappedUser = _mapper.Map<List<UserForGetDto>>(result);
-            foreach (var item in result)
-            {
-                var mappedDto = _mapper.Map<FilterDTO>(item.Employee);
-                foreach (var list in mappedUser)
-                {
-                    list.Employee = mappedDto;
-                }
-            }
+
             return mappedUser;
         }
 

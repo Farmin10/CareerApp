@@ -21,7 +21,8 @@ namespace career.DAL.Concrete.EntityFramework
 
         public List<User> GetUsers()
         {
-            return _context.Users.Include(x=>x.Employee).Where(x=>x.EmployeeId==x.Employee.EmployeeId).ToList();
+            var result= _context.Users.Include(x => x.Employee).Where(x => x.EmployeeId == x.Employee.EmployeeId).ToList();
+            return result;
         }
     }
 }

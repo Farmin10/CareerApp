@@ -10,5 +10,6 @@ namespace career.DAL.Abstract
 {
     public interface IProjectDal:IEntityRepository<Project>
     {
+        List<Project> GetAll();
     }
 }

@@ -12,7 +12,7 @@ namespace career.BLL.Abstract
     {
         List<GetEmployeeDto> GetAll();
         List<FilterDTO> GetAllWithFilter();
-        EmployeeAddDto AddEmployee(EmployeeAddDto employeeAddDto);
+        GetEmployeeDto AddEmployee(EmployeeAddDto employeeAddDto);
         UpdateEmployeeDto UpdateEmployee(UpdateEmployeeDto updateEmployeeDto);
         void DeleteEmployee(int id);
     }

@@ -11,5 +11,6 @@ namespace career.BLL.Abstract
     public interface IProjectService
     {
         ProjectForAddDto AddProject(ProjectForAddDto projectForAddDto);
+        List<ProjectForGetDto> GetAll();
     }
 }

@@ -42,5 +42,12 @@ namespace career.BLL.Concrete
            
             return projectForAddDto;
         }
+
+        public List<ProjectForGetDto> GetAll()
+        {
+            var result = _unitOfWork.ProjectDal.Get();
+            var mappedProject = _mapper.Map<List<ProjectForGetDto>>(result);
+            return mappedProject;
+        }
     }
 }

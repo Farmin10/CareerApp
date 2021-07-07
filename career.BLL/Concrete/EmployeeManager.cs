@@ -26,14 +26,15 @@ namespace career.BLL.Concrete
             _mapper = mapper;
         }
 
-        public EmployeeAddDto AddEmployee(EmployeeAddDto employeeAddDto)
+        public GetEmployeeDto AddEmployee(EmployeeAddDto employeeAddDto)
         {
            
             var mappedEmployee = _mapper.Map<Employee>(employeeAddDto);
             _unitOfWork.EmployeeDal.Add(mappedEmployee);
             _unitOfWork.Commit();
-
-            return employeeAddDto;
+            var mapped = _unitOfWork.EmployeeDal.GetAll().SingleOrDefault(x => x.EmployeeId == mappedEmployee.EmployeeId);
+            var result = _mapper.Map<GetEmployeeDto>(mapped);
+            return result;
         }
 
         public void DeleteEmployee(int id)

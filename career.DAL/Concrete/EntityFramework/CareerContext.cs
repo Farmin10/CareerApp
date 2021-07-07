@@ -100,5 +100,7 @@ namespace career.DAL.Concrete.EntityFramework
         public DbSet<Departmant> Departmants { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<File> Files { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
     }
 }

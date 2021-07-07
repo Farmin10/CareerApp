@@ -21,6 +21,23 @@ namespace career.API.Controllers
         }
 
 
+
+
+        /// <summary>
+        /// layihelerin siyahisi
+        /// </summary>
+        /// <param name="projectForAddDto"></param>
+        /// <returns></returns>
+        [HttpGet("getAllProjects")]
+        public IActionResult GetProjects()
+        {
+            var result = _projectService.GetAll();
+            return Ok(result);
+        }
+
+
+
+
         /// <summary>
         /// layihe elave etmek
         /// </summary>
