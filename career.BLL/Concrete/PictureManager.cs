@@ -30,5 +30,23 @@ namespace career.BLL.Concrete
             _unitOfWork.Commit();
             return pictureForAddDto;
         }
+
+        public void Delete(int id)
+        {
+            var deletedPicture = _unitOfWork.PictureDal.Get(x => x.ProjectId == id);
+            foreach (var item in deletedPicture)
+            {
+                _unitOfWork.PictureDal.Delete(item);
+            }
+            
+        }
+
+        public PictureForUpdateDto UpdatePicture(PictureForUpdateDto pictureForUpdateDto)
+        {
+            var mappedPicture = _mapper.Map<Picture>(pictureForUpdateDto);
+            _unitOfWork.PictureDal.Update(mappedPicture);
+            _unitOfWork.Commit();
+            return pictureForUpdateDto;
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace career.DAL.Mappings
             CreateMap<VacancyType, VacancyTypesDTO>().ReverseMap();
             CreateMap<VacancyType, VacancyTypeAddDto>().ReverseMap();
             CreateMap<VacancyType, VacancyTypeDto>().ReverseMap();
+            CreateMap<VacancyType, VacancyTypeUpdateDto>().ReverseMap();
             CreateMap<VacancyType, FilterDTO>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(a => a.VacancyTypeId))
                 .ForMember(x => x.Value, opt => opt.MapFrom(a => a.Name));
@@ -81,6 +82,7 @@ namespace career.DAL.Mappings
 
             CreateMap<Picture, PictureForAddDto>().ReverseMap();
             CreateMap<Picture, PictureForGetDto>().ReverseMap();
+            CreateMap<Picture, PictureForUpdateDto>().ReverseMap();
 
 
 
@@ -88,6 +90,8 @@ namespace career.DAL.Mappings
 
             CreateMap<Project, ProjectForAddDto>().ReverseMap();
             CreateMap<Project, ProjectForGetDto>().ReverseMap();
+            CreateMap<Project, ProjectForUpdateDto>().ReverseMap();
+            CreateMap<Project, ProjectForDeleteDto>().ReverseMap();
 
 
 

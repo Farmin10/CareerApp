@@ -61,8 +61,8 @@ namespace career.BLL.Concrete
             _unitOfWork.Commit();
             var vacancy = _unitOfWork.VacancyDal.GetVacancies().SingleOrDefault(x => x.VacancyId ==mappedVacancy.VacancyId);
             var response = _mapper.Map<VacancyForAddResponse>(vacancy);
-            response.VacancyInformationAddDto = _mapper.Map<List<VacancyInformationAddDto>>(vacancy.VacancyInformation);
-            response.VacancyRequirementAddDtos = _mapper.Map<List<VacancyRequirementAddDto>>(vacancy.VacancyRequirements);
+            response.VacancyInformationGetDtos = _mapper.Map<List<VacancyInformationAddDto>>(vacancy.VacancyInformation);
+            response.VacancyRequirementGetDtos = _mapper.Map<List<VacancyRequirementAddDto>>(vacancy.VacancyRequirements);
             response.VacancyTypeDto = _mapper.Map<VacancyTypeDto>(vacancy.VacancyType);
             return response;
         }

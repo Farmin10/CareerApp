@@ -49,5 +49,35 @@ namespace career.API.Controllers
             var result = _projectService.AddProject(projectForAddDto);
             return Ok(result);
         }
+
+
+
+
+        /// <summary>
+        /// layihe update
+        /// </summary>
+        /// <param name="projectForUpdateDto"></param>
+        /// <returns></returns>
+        [HttpPut("update")]
+        public IActionResult UpdateProject(ProjectForUpdateDto projectForUpdateDto)
+        {
+            var result = _projectService.UpdateProject(projectForUpdateDto);
+            return Ok(result);
+        }
+
+
+
+
+        /// <summary>
+        /// layihenin silinmeesi
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("delete")]
+        public IActionResult DeleteProject(int id)
+        {
+            _projectService.DeleteProject(id);
+            return Ok();
+        }
     }
 }

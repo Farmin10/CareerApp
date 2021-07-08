@@ -13,6 +13,7 @@ namespace career.BLL.Abstract
     {
         List<VacancyTypesDTO> GetAll();
         List<FilterDTO> GetAllByFilter();
-        
+        VacancyTypeAddDto AddVacancyType(VacancyTypeAddDto vacancyTypeAddDto);
+        VacancyTypeUpdateDto UpdateVacancyType(VacancyTypeUpdateDto vacancyTypeUpdateDto);
     }
 }

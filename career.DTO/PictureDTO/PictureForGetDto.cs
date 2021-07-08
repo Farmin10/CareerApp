@@ -8,6 +8,6 @@ namespace career.DTO.PictureDTO
 {
     public class PictureForGetDto
     {
-        public List<string> PicturesPath { get; set; }
+        public string PicturePath { get; set; }
     }
 }

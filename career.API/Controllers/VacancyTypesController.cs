@@ -1,5 +1,6 @@
 ﻿using career.BLL.Abstract;
 using career.DTO.VacancyDTO;
+using career.DTO.VacancyTypeDTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -34,7 +35,33 @@ namespace career.API.Controllers
         }
 
 
-
+        /// <summary>
+        /// vakansiya novu elave etme
+        /// </summary>
+        /// <param name="vacancyTypeAddDto"></param>
+        /// <returns></returns>
+        [HttpPost("Add")]
+        public IActionResult AddVacancyType(VacancyTypeAddDto vacancyTypeAddDto)
+        {
+            var result = _vacancyTypeService.AddVacancyType(vacancyTypeAddDto);
+            return Ok(result);
         
+        }
+
+
+
+
+        /// <summary>
+        /// update 
+        /// </summary>
+        /// <param name="vacancyTypeUpdateDto"></param>
+        /// <returns></returns>
+        [HttpPut("update")]
+        public IActionResult UpdateVacancyType(VacancyTypeUpdateDto vacancyTypeUpdateDto)
+        {
+            var result = _vacancyTypeService.UpdateVacancyType(vacancyTypeUpdateDto);
+            return Ok(result);
+
+        }
     }
 }

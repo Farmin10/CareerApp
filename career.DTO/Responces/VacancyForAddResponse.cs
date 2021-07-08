@@ -11,6 +11,7 @@ namespace career.DTO.Responces
 {
     public class VacancyForAddResponse
     {
+        public int VacancyId { get; set; }
         public VacancyTypeDto VacancyTypeDto { get; set; }
         public string VacancyHeader { get; set; }
         public string WorkLocation { get; set; }
@@ -24,8 +25,8 @@ namespace career.DTO.Responces
 
         public DateTime VacancyEndDate { get; set; }
 
-        public List<VacancyInformationAddDto> VacancyInformationAddDto { get; set; }
+        public List<VacancyInformationAddDto> VacancyInformationGetDtos { get; set; }
 
-        public List<VacancyRequirementAddDto> VacancyRequirementAddDtos { get; set; }
+        public List<VacancyRequirementAddDto> VacancyRequirementGetDtos { get; set; }
     }
 }

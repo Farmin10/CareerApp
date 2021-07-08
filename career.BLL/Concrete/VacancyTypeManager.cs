@@ -4,6 +4,7 @@ using career.DAL.DataAccess;
 using career.DTO.Utility;
 using career.DTO.VacancyDTO;
 using career.DTO.VacancyTypeDTO;
+using career.Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,13 @@ namespace career.BLL.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        
+        public VacancyTypeAddDto AddVacancyType(VacancyTypeAddDto vacancyTypeAddDto)
+        {
+            var mappedVacancyType = _mapper.Map<VacancyType>(vacancyTypeAddDto);
+            _unitOfWork.VacancyTypeDal.Add(mappedVacancyType);
+            _unitOfWork.Commit();
+            return vacancyTypeAddDto;
+        }
 
         public List<VacancyTypesDTO> GetAll()
         {
@@ -36,6 +43,14 @@ namespace career.BLL.Concrete
             var result = _unitOfWork.VacancyTypeDal.Get();
             var mappedEntity = _mapper.Map<List<FilterDTO>>(result);
             return mappedEntity;
+        }
+
+        public VacancyTypeUpdateDto UpdateVacancyType(VacancyTypeUpdateDto vacancyTypeUpdateDto)
+        {
+            var mappedVacancyType = _mapper.Map<VacancyType>(vacancyTypeUpdateDto);
+            _unitOfWork.VacancyTypeDal.Update(mappedVacancyType);
+            _unitOfWork.Commit();
+            return vacancyTypeUpdateDto;
         }
     }
 }

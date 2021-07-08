@@ -38,7 +38,7 @@ namespace career.BLL.Concrete
             
                 if (file.Length <= 0) return null;
                 var fileName = Guid.NewGuid()+file.FileName;
-                var filePath = Path.Combine("wwwroot", Guid.NewGuid() +file.FileName);
+                var filePath = Path.Combine(Guid.NewGuid() +file.FileName);
                 var extension = Path.GetExtension(filePath);
                 var size = SizeConverter(file.Length);
                 using (var stream = new FileStream(filePath, FileMode.Create))

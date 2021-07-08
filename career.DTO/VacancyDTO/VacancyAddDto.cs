@@ -11,6 +11,7 @@ namespace career.DTO.VacancyDTO
 {
     public class VacancyAddDto
     {
+       
         public int VacancyTypeId { get; set; }
         public string VacancyHeader { get; set; }
         public string WorkLocation { get; set; }

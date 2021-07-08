@@ -11,5 +11,7 @@ namespace career.BLL.Abstract
     public interface IPictureService
     {
         PictureForAddDto AddPicture(PictureForAddDto pictureForAddDto);
+        PictureForUpdateDto UpdatePicture(PictureForUpdateDto pictureForUpdateDto);
+        void Delete(int id);
     }
 }
