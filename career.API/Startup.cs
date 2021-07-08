@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using career.API.Extensions;
 using career.BLL.Abstract;
 using career.BLL.Concrete;
 using career.DAL.Abstract;
@@ -114,10 +115,7 @@ namespace career.API
             new CoreModule()
             });
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "career.API", Version = "v1" });
-            });
+            services.AddSwaggerDocumentation();
 
 
             services.AddCors(options =>
@@ -137,8 +135,7 @@ namespace career.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "career.API v1"));
+                app.UseSwaggerDocumentation();
             }
 
             app.UseHttpsRedirection();
@@ -148,6 +145,8 @@ namespace career.API
             app.UseCors();
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

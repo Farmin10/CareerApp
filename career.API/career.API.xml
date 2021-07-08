@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>career.API</name>
+    </assembly>
+    <members>
+        <member name="M:career.API.Controllers.AuthController.Login(career.DTO.UserDTO.UserForLoginDto)">
+            <summary>
+            Giriş
+            </summary>
+            <param name="userForLoginDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.AuthController.Register(career.DTO.UserDTO.UserForRegisterDto)">
+            <summary>
+            Qeydiyyat
+            </summary>
+            <param name="userForRegisterDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.AuthController.GetAll">
+            <summary>
+            istifadeci siyahisi
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.DepartmantsController.GetDepartmants">
+            <summary>
+            departmant siyahisi
+            </summary>
+        </member>
+        <member name="M:career.API.Controllers.EmployeesController.GetAll">
+            <summary>
+            isci siyahisi
+            </summary>
+        </member>
+        <member name="M:career.API.Controllers.EmployeesController.AddEmployee(career.DTO.EmployeeDTO.EmployeeAddDto)">
+            <summary>
+            isci elave etme
+            </summary>
+            <param name="employeeAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.EmployeesController.UpdateEmployee(career.DTO.EmployeeDTO.UpdateEmployeeDto)">
+            <summary>
+            isci yenileme
+            </summary>
+            <param name="updateEmployeeDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.EmployeesController.Delete(System.Int32)">
+            <summary>
+            isci silme
+            </summary>
+            <param name="updateEmployeeDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.FiltersController.GetDeptWithFilter">
+            <summary>
+            departmant siyahisi filter ile
+            </summary>
+        </member>
+        <member name="M:career.API.Controllers.FiltersController.GetPositionsWithFilter">
+            <summary>
+            get positions with filters
+            </summary>
+        </member>
+        <member name="M:career.API.Controllers.FiltersController.GetAllByFilter">
+            <summary>
+            Get all data by filter
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.FiltersController.GetAllWithFilter">
+            <summary>
+            isci siyahisi filter ile
+            </summary>
+        </member>
+        <member name="M:career.API.Controllers.FiltersController.GetVacanciesWithFilter">
+            <summary>
+            vakansiya siyahisi filter ile
+            </summary>
+        </member>
+        <member name="M:career.API.Controllers.ProjectsController.GetProjects">
+            <summary>
+            layihelerin siyahisi
+            </summary>
+            <param name="projectForAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.ProjectsController.AddProject(career.DTO.ProjectDTO.ProjectForAddDto)">
+            <summary>
+            layihe elave etmek
+            </summary>
+            <param name="projectForAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.ProjectsController.UpdateProject(career.DTO.ProjectDTO.ProjectForUpdateDto)">
+            <summary>
+            layihe update
+            </summary>
+            <param name="projectForUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.ProjectsController.DeleteProject(System.Int32)">
+            <summary>
+            layihenin silinmeesi
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.VacanciesController.GetAll">
+            <summary>
+            Butun vakansiyalar
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.VacanciesController.GetById(System.Int32)">
+            <summary>
+            Id-ye gore vakansiya
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.VacanciesController.AddVacancy(career.DTO.VacancyDTO.VacancyAddDto)">
+            <summary>
+            Vakansiya elave et
+            </summary>
+            <param name="vacancyAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.VacanciesController.UpdateVacancy(career.DTO.VacancyDTO.VacancyUpdateDto)">
+            <summary>
+            Vakansiya elave et
+            </summary>
+            <param name="vacancyAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.VacanciesController.DeleteVacancy(System.Int32)">
+            <summary>
+            Vakansiyanin silinmesi
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.VacancyTypesController.GetAll">
+            <summary>
+            Get all data
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.VacancyTypesController.AddVacancyType(career.DTO.VacancyTypeDTO.VacancyTypeAddDto)">
+            <summary>
+            vakansiya novu elave etme
+            </summary>
+            <param name="vacancyTypeAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.VacancyTypesController.UpdateVacancyType(career.DTO.VacancyTypeDTO.VacancyTypeUpdateDto)">
+            <summary>
+            update 
+            </summary>
+            <param name="vacancyTypeUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:career.API.Extensions.SwaggerServiceExtensions">
+            <summary>
+            swagger extension
+            </summary>
+        </member>
+        <member name="M:career.API.Extensions.SwaggerServiceExtensions.AddSwaggerDocumentation(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Swagger konfigurasiyasi 
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Extensions.SwaggerServiceExtensions.UseSwaggerDocumentation(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            swagger middleware
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

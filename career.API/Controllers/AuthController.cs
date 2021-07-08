@@ -33,7 +33,7 @@ namespace career.API.Controllers
         public async Task<ActionResult> Login(UserForLoginDto userForLoginDto)
         {
             var userToLogin = await _authService.Login(userForLoginDto);
-            if (userToLogin != null)
+            if (userToLogin == null)
             {
                 return Ok(userToLogin);
             }
