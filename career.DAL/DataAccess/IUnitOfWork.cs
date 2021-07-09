@@ -21,6 +21,7 @@ namespace career.DAL.DataAccess
         IFileDal FileDal { get; }
         IProjectDal ProjectDal { get; }
         IPictureDal PictureDal { get; }
+        IAppealDal AppealDal { get; }
 
         void Commit();
     }

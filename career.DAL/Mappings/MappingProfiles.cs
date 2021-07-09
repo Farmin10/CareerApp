@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using career.DTO;
+using career.DTO.AppealDTO;
 using career.DTO.DepartmantDTO;
 using career.DTO.EmployeeDTO;
 using career.DTO.FileDTO;
@@ -97,9 +98,22 @@ namespace career.DAL.Mappings
 
 
 
+            CreateMap<Appeal, AppealForGetDto>().ReverseMap();
+            CreateMap<Appeal, AppealForAddDto>().ReverseMap();
+            CreateMap<Appeal, AppealForAddResponse>().ReverseMap();
+            CreateMap<Appeal, AppealForUpdateDto>().ReverseMap();
+            CreateMap<Appeal, AppealForUpdateResponse>().ReverseMap();
+
+
+
+
+
+
+
             CreateMap<Vacancy, VacancyUpdateDto>().ReverseMap();
             CreateMap<Vacancy, VacancyForUpdateResponse>().ReverseMap();
             CreateMap<Vacancy, VacancyForAddResponse>().ReverseMap();
+            CreateMap<Vacancy, VacancyForAppealDto>().ReverseMap();
             CreateMap<Vacancy, VacancyAddDto>().ReverseMap();
             CreateMap<Vacancy, VacanciesDto>().ReverseMap();
             CreateMap<Vacancy, VacancyDeleteDto>().ReverseMap();

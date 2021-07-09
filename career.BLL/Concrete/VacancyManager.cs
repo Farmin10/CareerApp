@@ -146,6 +146,7 @@ namespace career.BLL.Concrete
         {
             #region VacancyUpdate
             var mappedVacancy = _mapper.Map<Vacancy>(vacancyUpdateDto);
+            mappedVacancy.VacancyTypeId = vacancyUpdateDto.VacancyTypeId;
             _unitOfWork.VacancyDal.Update(mappedVacancy);
             _unitOfWork.Commit();
             #endregion

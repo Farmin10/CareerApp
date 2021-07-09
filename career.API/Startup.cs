@@ -88,6 +88,9 @@ namespace career.API
             services.AddTransient<IVacancyRequirementService, VacancyRequirementManager>();
             services.AddTransient<IVacancyRequirementDal, EfVacancyRequirementDal>();
 
+            services.AddTransient<IAppealService, AppealManager>();
+            services.AddTransient<IAppealDal, EfAppealDal>();
+
             services.AddTransient<IFileService, FileManager>();
             services.AddTransient<IFileDal, EfFileDal>();
 

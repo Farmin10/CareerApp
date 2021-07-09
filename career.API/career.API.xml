@@ -4,6 +4,33 @@
         <name>career.API</name>
     </assembly>
     <members>
+        <member name="M:career.API.Controllers.AppealsController.GetAppeals">
+            <summary>
+            muracietlerin siyahisi
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.AppealsController.AddAppeal(career.DTO.AppealDTO.AppealForAddDto)">
+            <summary>
+            Muraciet elave etmek
+            </summary>
+            <param name="appealForAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.AppealsController.UpdateAppeal(career.DTO.AppealDTO.AppealForUpdateDto)">
+            <summary>
+            muracietin yenilenmesi 
+            </summary>
+            <param name="appealForUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.AppealsController.DeleteAppeal(System.Int32)">
+            <summary>
+            muracietin silinmesi
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:career.API.Controllers.AuthController.Login(career.DTO.UserDTO.UserForLoginDto)">
             <summary>
             Giriş

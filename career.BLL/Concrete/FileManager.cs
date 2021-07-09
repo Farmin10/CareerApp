@@ -16,7 +16,7 @@ using career.DTO.Responce;
 
 namespace career.BLL.Concrete
 {
-    public class FileManager:IFileService
+    public class FileManager : IFileService
     {
         IWebHostEnvironment _hostingEnvironment;
         IUnitOfWork _unitOfWork;
@@ -31,26 +31,22 @@ namespace career.BLL.Concrete
 
         public FileUploadDto UploadFile(IFormFile file)
         {
-            //var mappedFile=_mapper.Map<File>
-           
+            if (file.Length <= 0) return null;
+            var fileName = Guid.NewGuid() + file.FileName;
+            var filePath = Path.Combine("wwwroot", Guid.NewGuid() + file.FileName);
+            var extension = Path.GetExtension(filePath);
+            var size = SizeConverter(file.Length);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyToAsync(stream);
+            }
+            var mappedFile = new FileUploadDto() { FileName = fileName.ToString(), FilePath = filePath, FileExtension = extension, FileSize = size, CreatedDate = DateTime.Now };
+            var result = _mapper.Map<Entity.Concrete.File>(mappedFile);
+            _unitOfWork.FileDal.Add(result);
 
-            
-                if (file.Length <= 0) return null;
-                var fileName = Guid.NewGuid()+file.FileName;
-                var filePath = Path.Combine("wwwroot",Guid.NewGuid() +file.FileName);
-                var extension = Path.GetExtension(filePath);
-                var size = SizeConverter(file.Length);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                     file.CopyToAsync(stream);
-                }
-                var mappedFile = new FileUploadDto() {FileName=fileName.ToString(),FilePath=filePath,FileExtension=extension,FileSize=size,CreatedDate=DateTime.Now };
-                var result = _mapper.Map<Entity.Concrete.File>(mappedFile);
-                 _unitOfWork.FileDal.Add(result);
-                
-            
+
             _unitOfWork.Commit();
-            return mappedFile ;
+            return mappedFile;
         }
 
         public (string fileType, byte[] archiveData, string archiveName) DownloadFiles(string subDirectory)

@@ -9,17 +9,6 @@ namespace career.Entity.Concrete
 {
     public class Appeal
     {
-        /*
-         AppealId int pk,
-CandidateName string required,
-CandidateSurname string required,
-VacancyId fk required(fk to Vacancy table),
-Mail required (validate mail address),
-PhoneNumber required (validate phone number),
-ApplyDate datetime,
-ResumePath string,
-IsDeleted bool
-         */
         public int AppealId { get; set; }
         [Required]
         public string  CandidateName { get; set; }
