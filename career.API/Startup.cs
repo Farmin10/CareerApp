@@ -51,6 +51,8 @@ namespace career.API
 
             services.AddAutoMapper(typeof(MappingProfiles));
 
+
+            #region DependencyResolvers
             services.AddScoped<IVacancyTypeService, VacancyTypeManager>();
             services.AddTransient<IVacancyTypeDal, EfVacancyTypeDal>();
 
@@ -80,7 +82,7 @@ namespace career.API
             services.AddTransient<IProjectService, ProjectManager>();
 
 
-            services.AddScoped<IUnitOfWork,UnitOfwork>();
+            services.AddScoped<IUnitOfWork, UnitOfwork>();
 
             services.AddScoped<IVacancyInformationService, VacancyInformationManager>();
             services.AddTransient<IVacancyInformationDal, EfVacancyInformationDal>();
@@ -91,8 +93,13 @@ namespace career.API
             services.AddTransient<IAppealService, AppealManager>();
             services.AddTransient<IAppealDal, EfAppealDal>();
 
+            services.AddTransient<INewsService, NewsManager>();
+            services.AddTransient<INewsDal, EfNewsDal>();
+
             services.AddTransient<IFileService, FileManager>();
             services.AddTransient<IFileDal, EfFileDal>();
+            #endregion
+
 
             services.AddDbContext<CareerContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 

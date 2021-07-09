@@ -4,6 +4,7 @@ using career.DTO.AppealDTO;
 using career.DTO.DepartmantDTO;
 using career.DTO.EmployeeDTO;
 using career.DTO.FileDTO;
+using career.DTO.NewsDTO;
 using career.DTO.PictureDTO;
 using career.DTO.PositionDTO;
 using career.DTO.ProjectDTO;
@@ -93,6 +94,14 @@ namespace career.DAL.Mappings
             CreateMap<Project, ProjectForGetDto>().ReverseMap();
             CreateMap<Project, ProjectForUpdateDto>().ReverseMap();
             CreateMap<Project, ProjectForDeleteDto>().ReverseMap();
+
+
+
+
+            CreateMap<News, NewsForAddDto>().ReverseMap();
+            CreateMap<News, NewsResponse>().ReverseMap();
+            CreateMap<News, NewsForUpdateDto>().ReverseMap();
+            CreateMap<News, NewsForGetDto>().ReverseMap();
 
 
 

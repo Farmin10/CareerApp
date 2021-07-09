@@ -108,6 +108,33 @@
             vakansiya siyahisi filter ile
             </summary>
         </member>
+        <member name="M:career.API.Controllers.NewsController.GetNews">
+            <summary>
+            muracietlerin siyahisi
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.NewsController.AddNews(career.DTO.NewsDTO.NewsForAddDto)">
+            <summary>
+            Muraciet elave etmek
+            </summary>
+            <param name="newsForAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.NewsController.UpdateAppeal(career.DTO.NewsDTO.NewsForUpdateDto)">
+            <summary>
+            muracietin yenilenmesi 
+            </summary>
+            <param name="newsForUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.NewsController.DeleteAppeal(System.Int32)">
+            <summary>
+            muracietin silinmesi
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:career.API.Controllers.ProjectsController.GetProjects">
             <summary>
             layihelerin siyahisi

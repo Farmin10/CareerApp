@@ -80,6 +80,9 @@ namespace career.DAL.Concrete.EntityFramework
             modelBuilder.Entity<Appeal>().HasQueryFilter(e => e.IsDeleted == false);
 
 
+            modelBuilder.Entity<News>().HasQueryFilter(e => e.IsDeleted == false);
+
+
             modelBuilder.Entity<File>().HasQueryFilter(e => e.IsDeleted == false);
 
             modelBuilder.Entity<Vacancy>().HasKey(vacancy => vacancy.VacancyId);
@@ -107,5 +110,6 @@ namespace career.DAL.Concrete.EntityFramework
         public DbSet<Project> Projects { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Appeal> Appeals { get; set; }
+        public DbSet<News> News { get; set; }
     }
 }

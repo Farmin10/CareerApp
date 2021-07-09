@@ -26,11 +26,13 @@ namespace career.DAL.DataAccess.EntityFramework
             ProjectDal = new EfProjectDal(_context);
             PictureDal = new EfPictureDal(_context);
             AppealDal = new EfAppealDal(_context);
+            NewsDal = new EfNewsDal(_context);
         }
 
 
         public IVacancyDal VacancyDal { get; private set; }
         public IAppealDal AppealDal { get; private set; }
+        public INewsDal NewsDal { get; private set; }
 
         public IVacancyInformationDal VacancyInformationDal { get; private set; }
 

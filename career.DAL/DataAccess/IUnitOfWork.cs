@@ -11,6 +11,7 @@ namespace career.DAL.DataAccess
     public interface IUnitOfWork:IDisposable
     {
         IVacancyDal VacancyDal { get; }
+        INewsDal NewsDal { get; }
         IVacancyInformationDal VacancyInformationDal { get; }
         IVacancyRequirementDal VacancyRequirementDal { get; }
         IVacancyTypeDal VacancyTypeDal { get; }
