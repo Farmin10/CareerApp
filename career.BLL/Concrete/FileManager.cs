@@ -12,7 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using career.DTO.FileDTO;
-using career.DTO.Responce;
 
 namespace career.BLL.Concrete
 {

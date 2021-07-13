@@ -60,13 +60,13 @@ namespace career.API.Controllers
             return Ok(result);
         }
 
-
+        
         /// <summary>
         /// muracietin silinmesi
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("delete")]
         public IActionResult DeleteAppeal(int id)
         {
             _newsService.Delete(id);

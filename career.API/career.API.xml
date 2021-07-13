@@ -10,6 +10,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:career.API.Controllers.AppealsController.GetAppealByVacancyId(System.Int32)">
+            <summary>
+            vakansiya Id-sine gore siyahi
+            </summary>
+            <param name="vacancyId"></param>
+            <returns></returns>
+        </member>
         <member name="M:career.API.Controllers.AppealsController.AddAppeal(career.DTO.AppealDTO.AppealForAddDto)">
             <summary>
             Muraciet elave etmek

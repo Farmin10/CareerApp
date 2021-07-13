@@ -37,6 +37,21 @@ namespace career.API.Controllers
 
 
         /// <summary>
+        /// vakansiya Id-sine gore siyahi
+        /// </summary>
+        /// <param name="vacancyId"></param>
+        /// <returns></returns>
+        [HttpGet("getById")]
+        public IActionResult GetAppealByVacancyId(int vacancyId)
+        {
+            var result = _appealService.GetAppealByVacancyId(vacancyId);
+            return Ok(result);
+        }
+
+
+
+
+        /// <summary>
         /// Muraciet elave etmek
         /// </summary>
         /// <param name="appealForAddDto"></param>

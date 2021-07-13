@@ -42,6 +42,13 @@ namespace career.BLL.Concrete
             _unitOfWork.Commit();
         }
 
+        public List<AppealForGetDto> GetAppealByVacancyId(int  vacancyId)
+        {
+            var result = _unitOfWork.AppealDal.GetAll().Where(x => x.VacancyId == vacancyId);
+            var mappedAppeal = _mapper.Map<List<AppealForGetDto>>(result);
+            return mappedAppeal;
+        }
+
         public List<AppealForGetDto> GetAppeals()
         {
             var result = _unitOfWork.AppealDal.GetAll();

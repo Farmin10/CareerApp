@@ -12,6 +12,7 @@ namespace career.BLL.Abstract
     {
         List<AppealForGetDto> GetAppeals();
         AppealForAddResponse  AddAppeal(AppealForAddDto appealForAddDto);
+        List<AppealForGetDto>  GetAppealByVacancyId(int vacancyId);
         AppealForUpdateResponse  UpdateAppeal(AppealForUpdateDto appealForUpdateDto);
         void Delete(int id);
     }
