@@ -8,6 +8,7 @@ namespace career.DTO.VacancyInformationDto
 {
     public class VacancyInformationGetDto
     {
+        public int VacancyInfoId { get; set; }
         public string VacancyInfoLabel { get; set; }
         public string VacancyInfoValue { get; set; }
     }

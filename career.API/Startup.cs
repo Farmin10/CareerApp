@@ -119,6 +119,7 @@ namespace career.API
                         ValidAudience = tokenOptions.Audience,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
+                        
                     };
                 });
             services.AddDependencyResolvers(new ICoreModule[] {
