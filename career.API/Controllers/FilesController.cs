@@ -35,25 +35,10 @@ namespace career.API.Controllers
             }
         }
 
-        [HttpGet(nameof(Download))]
-        public IActionResult Download([Required] string subDirectory)
-        {
-
-            try
-            {
-                var (fileType, archiveData, archiveName) = _fileService.DownloadFiles(subDirectory);
-
-                return File(archiveData, fileType, archiveName);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
+      
 
         /// <summary>
-        /// 
+        /// file download
         /// </summary>
         /// <param name="subDirectory"></param>
         /// <returns></returns>

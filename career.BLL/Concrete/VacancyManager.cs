@@ -104,31 +104,21 @@ namespace career.BLL.Concrete
             var result = _unitOfWork.VacancyDal.GetVacancies().ToList();
 
             var mappedVacancies = _mapper.Map<List<VacanciesDto>>(result);
-
-            foreach (var item in mappedVacancies)
+            foreach (var list in result)
             {
-                item.VacancyTypeDto = _mapper.Map<VacancyTypeDto>(result.Select(x=>x.VacancyType).FirstOrDefault(x => x.VacancyTypeId==item.VacancyId));
-                item.VacancyInformationGetDtos = _mapper.Map<List<VacancyInformationGetDto>>(result.Select(x=>x.VacancyInformation));
-                item.VacancyRequirementGetDtos = _mapper.Map<List<VacancyRequirementGetDto>>(result.Select(x=>x.VacancyRequirements));
+                var mappedType = _mapper.Map<VacancyTypeDto>(list.VacancyType);
+                var mappedInfo = _mapper.Map<List<VacancyInformationGetDto>>(list.VacancyInformation);
+                var mappedRequirement = _mapper.Map<List<VacancyRequirementGetDto>>(list.VacancyRequirements);
+                foreach (var item in mappedVacancies)
+                {
+                    if (list.VacancyId == item.VacancyId)
+                    {
+                        item.VacancyTypeDto = mappedType;
+                        item.VacancyInformationGetDtos = mappedInfo;
+                        item.VacancyRequirementGetDtos = mappedRequirement;
+                    }
+                }
             }
-
-            //foreach (var list in result)
-            //{
-            //    var mappedType = _mapper.Map<VacancyTypeDto>(list.VacancyType);
-            //    var mappedInfo = _mapper.Map<List<VacancyInformationGetDto>>(list.VacancyInformation);
-            //    var mappedRequirement = _mapper.Map<List<VacancyRequirementGetDto>>(list.VacancyRequirements);
-            //    //foreach (var item in mappedVacancies)
-            //    //{
-            //    //    if (list.VacancyId==item.VacancyId)
-            //    //    {
-            //    //        item.VacancyTypeDto = mappedType;
-            //    //        item.VacancyInformationGetDtos = mappedInfo;
-            //    //        item.VacancyRequirementGetDtos = mappedRequirement;
-            //    //    }
-
-
-            //    //}
-            //}
             return mappedVacancies.ToList();
             #endregion
 

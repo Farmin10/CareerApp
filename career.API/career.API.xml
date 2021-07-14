@@ -91,7 +91,7 @@
         </member>
         <member name="M:career.API.Controllers.FilesController.DownloadFile(System.String)">
             <summary>
-            
+            file download
             </summary>
             <param name="subDirectory"></param>
             <returns></returns>
