@@ -59,7 +59,7 @@ namespace career.BLL.Concrete
             #endregion
 
             _unitOfWork.Commit();
-            var vacancy = _unitOfWork.VacancyDal.GetVacancies().SingleOrDefault(x => x.VacancyId ==mappedVacancy.VacancyId);
+            var vacancy = _unitOfWork.VacancyDal.GetVacancies().SingleOrDefault(x => x.VacancyId == mappedVacancy.VacancyId);
             var response = _mapper.Map<VacancyForAddResponse>(vacancy);
             response.VacancyInformationGetDtos = _mapper.Map<List<VacancyInformationAddDto>>(vacancy.VacancyInformation);
             response.VacancyRequirementGetDtos = _mapper.Map<List<VacancyRequirementAddDto>>(vacancy.VacancyRequirements);
@@ -102,20 +102,33 @@ namespace career.BLL.Concrete
         {
             #region GetAllVacancies
             var result = _unitOfWork.VacancyDal.GetVacancies().ToList();
-            var mappedVacancies = _mapper.Map<List<VacanciesDto>>(result);
-            foreach (var list in result)
-            {
-                var mappedType = _mapper.Map<VacancyTypeDto>(list.VacancyType);
-                var mappedInfo = _mapper.Map<List<VacancyInformationGetDto>>(list.VacancyInformation);
-                var mappedRequirement = _mapper.Map<List<VacancyRequirementGetDto>>(list.VacancyRequirements);
-                foreach (var item in mappedVacancies)
-                {
-                    item.VacancyTypeDto = mappedType;
-                    item.VacancyInformationGetDtos = mappedInfo;
-                    item.VacancyRequirementGetDtos = mappedRequirement;
 
-                }
+            var mappedVacancies = _mapper.Map<List<VacanciesDto>>(result);
+
+            foreach (var item in mappedVacancies)
+            {
+                item.VacancyTypeDto = _mapper.Map<VacancyTypeDto>(result.Select(x=>x.VacancyType).FirstOrDefault(x => x.VacancyTypeId==item.VacancyId));
+                item.VacancyInformationGetDtos = _mapper.Map<List<VacancyInformationGetDto>>(result.Select(x=>x.VacancyInformation));
+                item.VacancyRequirementGetDtos = _mapper.Map<List<VacancyRequirementGetDto>>(result.Select(x=>x.VacancyRequirements));
             }
+
+            //foreach (var list in result)
+            //{
+            //    var mappedType = _mapper.Map<VacancyTypeDto>(list.VacancyType);
+            //    var mappedInfo = _mapper.Map<List<VacancyInformationGetDto>>(list.VacancyInformation);
+            //    var mappedRequirement = _mapper.Map<List<VacancyRequirementGetDto>>(list.VacancyRequirements);
+            //    //foreach (var item in mappedVacancies)
+            //    //{
+            //    //    if (list.VacancyId==item.VacancyId)
+            //    //    {
+            //    //        item.VacancyTypeDto = mappedType;
+            //    //        item.VacancyInformationGetDtos = mappedInfo;
+            //    //        item.VacancyRequirementGetDtos = mappedRequirement;
+            //    //    }
+
+
+            //    //}
+            //}
             return mappedVacancies.ToList();
             #endregion
 
@@ -152,12 +165,12 @@ namespace career.BLL.Concrete
             #endregion
 
             #region VacancyInfoUpdate
-            var deletedInfo= _unitOfWork.VacancyInformationDal.Get(x=>x.VacancyId==vacancyUpdateDto.VacancyId);
+            var deletedInfo = _unitOfWork.VacancyInformationDal.Get(x => x.VacancyId == vacancyUpdateDto.VacancyId);
             foreach (var item in deletedInfo)
             {
                 _unitOfWork.VacancyInformationDal.Delete(item);
             }
-            
+
 
             var deletedRequirements = _unitOfWork.VacancyRequirementDal.Get(x => x.VacancyId == vacancyUpdateDto.VacancyId);
             foreach (var item in deletedRequirements)
@@ -179,7 +192,7 @@ namespace career.BLL.Concrete
             #endregion
 
             #region VacancyReqirementUpdate
-           
+
             _unitOfWork.Commit();
             List<VacancyRequirementUpdateDto> vacancyRequirementUpdateDtos = vacancyUpdateDto.VacancyRequirementUpdateDtos;
             var mappedRequirement = _mapper.Map<List<VacancyRequirement>>(vacancyRequirementUpdateDtos);

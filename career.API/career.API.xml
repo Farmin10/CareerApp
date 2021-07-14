@@ -89,6 +89,13 @@
             <param name="updateEmployeeDto"></param>
             <returns></returns>
         </member>
+        <member name="M:career.API.Controllers.FilesController.DownloadFile(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="subDirectory"></param>
+            <returns></returns>
+        </member>
         <member name="M:career.API.Controllers.FiltersController.GetDeptWithFilter">
             <summary>
             departmant siyahisi filter ile

@@ -11,7 +11,7 @@ namespace career.BLL.Abstract
     public interface IFileService
     {
         FileUploadDto UploadFile(IFormFile file);
-        (string fileType, byte[] archiveData, string archiveName) DownloadFiles(string subDirectory);
         string SizeConverter(long bytes);
+        void DownloadFile(string subDirectory);
     }
 }

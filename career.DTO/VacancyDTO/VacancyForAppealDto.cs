@@ -8,6 +8,7 @@ namespace career.DTO.VacancyDTO
 {
     public class VacancyForAppealDto
     {
+        public int VacancyId { get; set; }
         public string  VacancyHeader { get; set; }
     }
 }

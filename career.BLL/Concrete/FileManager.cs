@@ -39,7 +39,7 @@ namespace career.BLL.Concrete
             {
                 file.CopyToAsync(stream);
             }
-            var mappedFile = new FileUploadDto() { FileName = fileName.ToString(), FilePath = filePath, FileExtension = extension, FileSize = size, CreatedDate = DateTime.Now };
+            var mappedFile = new FileUploadDto() { FileName = fileName.ToString(), FilePath = filePath.Substring(8), FileExtension = extension, FileSize = size, CreatedDate = DateTime.Now };
             var result = _mapper.Map<Entity.Concrete.File>(mappedFile);
             _unitOfWork.FileDal.Add(result);
 
@@ -48,31 +48,7 @@ namespace career.BLL.Concrete
             return mappedFile;
         }
 
-        public (string fileType, byte[] archiveData, string archiveName) DownloadFiles(string subDirectory)
-        {
-            var zipName = $"archive-{DateTime.Now.ToString("yyyy_MM_dd-HH_mm_ss")}.zip";
-
-            var files = Directory.GetFiles(Path.Combine("D:\\webroot\\", subDirectory)).ToList();
-
-            using (var memoryStream = new MemoryStream())
-            {
-                using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
-                {
-                    files.ForEach(file =>
-                    {
-                        var theFile = archive.CreateEntry(file);
-                        using (var streamWriter = new StreamWriter(theFile.Open()))
-                        {
-                            streamWriter.Write(System.IO.File.ReadAllText(file));
-                        }
-
-                    });
-                }
-
-                return ("application/zip", memoryStream.ToArray(), zipName);
-            }
-
-        }
+       
 
         public string SizeConverter(long bytes)
         {
@@ -94,6 +70,36 @@ namespace career.BLL.Concrete
                 default:
                     return "n/a";
             }
+        }
+
+
+        public void DownloadFile(string subDirectory)
+        {
+            var path= Path.Combine(subDirectory);
+            var memory = new MemoryStream();
+            using (var stream=new FileStream(path,FileMode.Open))
+            {
+                stream.CopyTo(memory);
+            }
+        }
+
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                {".txt","text/plain" },
+                {".pdf","application/pdf" },
+                {".doc","application/vnd.ms-word" },
+                {".docx","application/vnd.ms-word" },
+                {".xls","application/vnd.ms-excel" },
+                {".xlsx","application/vnd.ms-excel" },
+                {".png","image/png" },
+                {".jpg","image/jpeg" },
+                {".jpeg","image/jpeg" },
+                {".gif","image/gif" },
+                {".csv","text/csv" }
+            };
         }
     }
 }

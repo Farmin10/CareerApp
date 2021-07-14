@@ -51,5 +51,27 @@ namespace career.API.Controllers
             }
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="subDirectory"></param>
+        /// <returns></returns>
+        [HttpGet("getFile")]
+        public IActionResult DownloadFile([Required] string subDirectory)
+        {
+
+            try
+            {
+                 _fileService.DownloadFile(subDirectory);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }
