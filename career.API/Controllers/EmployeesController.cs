@@ -12,6 +12,7 @@ namespace career.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EmployeesController : ControllerBase
     {
         IEmployeeService _employeeService;
