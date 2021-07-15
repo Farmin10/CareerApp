@@ -13,5 +13,6 @@ namespace career.BLL.Abstract
         FileUploadDto UploadFile(IFormFile file);
         string SizeConverter(long bytes);
         void DownloadFile(string subDirectory);
+        Dictionary<string, string> GetMimeTypes();
     }
 }

@@ -37,9 +37,9 @@ namespace career.BLL.Concrete
             var size = SizeConverter(file.Length);
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                file.CopyToAsync(stream);
+                file.CopyTo(stream);
             }
-            var mappedFile = new FileUploadDto() { FileName = fileName.ToString(), FilePath = filePath.Substring(8), FileExtension = extension, FileSize = size, CreatedDate = DateTime.Now };
+            var mappedFile = new FileUploadDto() { FileName = fileName.ToString(), FilePath = filePath[8..], FileExtension = extension, FileSize = size, CreatedDate = DateTime.Now };
             var result = _mapper.Map<Entity.Concrete.File>(mappedFile);
             _unitOfWork.FileDal.Add(result);
 
@@ -75,16 +75,18 @@ namespace career.BLL.Concrete
 
         public void DownloadFile(string subDirectory)
         {
-            var path= Path.Combine(subDirectory);
-            var memory = new MemoryStream();
-            using (var stream=new FileStream(path,FileMode.Open))
-            {
-                stream.CopyTo(memory);
-            }
+            //var path= Path.Combine(subDirectory);
+            //var memory = new MemoryStream();
+            //using (var stream=new FileStream(path,FileMode.Open))
+            //{
+            //    stream.CopyTo(memory);
+            //}
+            //var bytes = System.IO.File.ReadAllBytesAsync(path);
+            //File(bytes,GetMimeTypes(),Path.GetExtension);
         }
 
 
-        private Dictionary<string, string> GetMimeTypes()
+        public Dictionary<string, string> GetMimeTypes()
         {
             return new Dictionary<string, string>
             {

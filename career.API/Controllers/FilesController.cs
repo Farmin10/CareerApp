@@ -1,4 +1,5 @@
 ﻿using career.BLL.Abstract;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,10 +16,12 @@ namespace career.API.Controllers
     public class FilesController : ControllerBase
     {
         private readonly IFileService _fileService;
+        IWebHostEnvironment _hostingEnvironment;
 
-        public FilesController(IFileService fileService)
+        public FilesController(IFileService fileService, IWebHostEnvironment hostingEnvironment)
         {
             _fileService = fileService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpPost(nameof(Upload))]
@@ -43,20 +46,12 @@ namespace career.API.Controllers
         /// <param name="subDirectory"></param>
         /// <returns></returns>
         [HttpGet("getFile")]
-        public IActionResult DownloadFile([Required] string subDirectory)
+        public async Task<IActionResult> DownloadFile([Required] string subDirectory)
         {
-
-            try
-            {
-                 _fileService.DownloadFile(subDirectory);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            var path = Path.Combine(subDirectory);
+            string mimeType = "application/pdf";
+            var bytes = await System.IO.File.ReadAllBytesAsync(path);
+            return  File(bytes,mimeType, Path.GetExtension(path));
         }
     }
 }
