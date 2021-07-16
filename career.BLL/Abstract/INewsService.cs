@@ -12,6 +12,7 @@ namespace career.BLL.Abstract
     {
         List<NewsForGetDto> GetNews();
         NewsResponse AddNews(NewsForAddDto newsForAddDto);
+        NewsForGetDto GetNewsById(int id);
         NewsResponse UpdateNews(NewsForUpdateDto newsForUpdateDto);
         void Delete(int id);
     }

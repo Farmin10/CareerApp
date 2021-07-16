@@ -128,6 +128,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:career.API.Controllers.NewsController.GetNewsById(System.Int32)">
+            <summary>
+            id-ye gore xeberler
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:career.API.Controllers.NewsController.AddNews(career.DTO.NewsDTO.NewsForAddDto)">
             <summary>
             Muraciet elave etmek

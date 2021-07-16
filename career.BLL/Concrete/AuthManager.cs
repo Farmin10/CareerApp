@@ -55,7 +55,7 @@ namespace career.BLL.Concrete
             var userToCheck = _userService.GetByUserName(userForLoginDto.UserName);
             if (userToCheck == null)
             {
-                return userToCheck;
+                return null;
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))

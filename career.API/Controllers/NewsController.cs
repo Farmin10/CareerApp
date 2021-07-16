@@ -33,6 +33,21 @@ namespace career.API.Controllers
 
 
 
+        /// <summary>
+        /// id-ye gore xeberler
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult GetNewsById(int id)
+        {
+            var result = _newsService.GetNewsById(id);
+            return Ok(result);
+        
+        }
+
+
+
 
         /// <summary>
         /// Muraciet elave etmek

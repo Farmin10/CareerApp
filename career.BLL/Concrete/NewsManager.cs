@@ -49,6 +49,13 @@ namespace career.BLL.Concrete
             return mappedNews;
         }
 
+        public NewsForGetDto GetNewsById(int id)
+        {
+            var result = _unitOfWork.NewsDal.Get(x => x.NewsId == id).SingleOrDefault();
+            var mappedNews = _mapper.Map<NewsForGetDto>(result);
+            return mappedNews;
+        }
+
         public NewsResponse UpdateNews(NewsForUpdateDto newsForUpdateDto)
         {
             var mappedNews = _mapper.Map<News>(newsForUpdateDto);

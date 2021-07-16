@@ -40,8 +40,16 @@ namespace career.BLL.Concrete
         public void DeleteEmployee(int id)
         {
             var employee = _unitOfWork.EmployeeDal.Get().SingleOrDefault(x => x.EmployeeId == id);
+            var user = _unitOfWork.UserDal.Get().Where(x => x.EmployeeId == employee.EmployeeId);
             employee.IsDeleted = true;
             _unitOfWork.EmployeeDal.Update(employee);
+            foreach (var item in user)
+            {
+                item.IsDeleted = true;
+                _unitOfWork.UserDal.Update(item);
+            }
+            
+           
             _unitOfWork.Commit();
         }
 
