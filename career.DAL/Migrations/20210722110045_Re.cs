@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace career.DAL.Migrations
 {
-    public partial class Refa : Migration
+    public partial class Re : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -290,7 +290,43 @@ namespace career.DAL.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Departmants",
+                columns: new[] { "DepartmantId", "IsDeleted", "Name", "ParentDepartmantId" },
+                values: new object[,]
+                {
+                    { 10, false, "Layihələndirmə", null },
+                    { 11, false, "Proqram təminatının hazırlanması", null },
+                    { 12, false, "Ümumi ", null },
+                    { 13, false, "Verilənlər bazasının idarə edilməsi və şəbəkə inzibatçılığı", null },
+                    { 14, false, "Maliyyə", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "VacancyTypes",
+                columns: new[] { "VacancyTypeId", "IsDeleted", "Key", "Name" },
+                values: new object[,]
+                {
+                    { 1, false, "intern", "Təcrübə proqramı" },
+                    { 2, false, "work", "İş vakansiyası" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Positions",
+                columns: new[] { "PositionId", "DepartmantId", "IsDeleted", "Name" },
+                values: new object[,]
+                {
+                    { 15, 10, false, "Şöbə müdiri" },
+                    { 10, 11, false, "Kiçik mütəxəssis" },
+                    { 11, 12, false, "Mütəxəssis" },
+                    { 13, 12, false, "Baş mütəxəssis" },
+                    { 12, 13, false, "Apararıcı mütəxəssis" },
+                    { 17, 13, false, "Direktor" },
+                    { 14, 14, false, "Sektor müdiri" },
+                    { 16, 14, false, "Direktor müavini" }
                 });
 
             migrationBuilder.CreateIndex(

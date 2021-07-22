@@ -59,6 +59,8 @@ namespace career.API
             services.AddScoped<IDepartmantService, DepartmantManager>();
             services.AddTransient<IDepartmantDal, EfDepartmantDal>();
 
+            services.AddScoped<ICountService, CountManager>();
+
             services.AddScoped<IPositionDal, EfPositionDal>();
             services.AddTransient<IPositionService, PositionManager>();
 

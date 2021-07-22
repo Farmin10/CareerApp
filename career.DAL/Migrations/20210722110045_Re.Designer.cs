@@ -10,8 +10,8 @@ using career.DAL.Concrete.EntityFramework;
 namespace career.DAL.Migrations
 {
     [DbContext(typeof(CareerContext))]
-    [Migration("20210722103504_Ref")]
-    partial class Ref
+    [Migration("20210722110045_Re")]
+    partial class Re
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -58,6 +58,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:career.API.Controllers.CountController.GetCount">
+            <summary>
+            cem
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:career.API.Controllers.DepartmantsController.GetDepartmants">
             <summary>
             departmant siyahisi
@@ -161,6 +167,13 @@
             layihelerin siyahisi
             </summary>
             <param name="projectForAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:career.API.Controllers.ProjectsController.GetProjectById(System.Int32)">
+            <summary>
+            id-ye gore layihe
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:career.API.Controllers.ProjectsController.AddProject(career.DTO.ProjectDTO.ProjectForAddDto)">

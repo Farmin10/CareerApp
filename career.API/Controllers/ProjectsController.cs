@@ -37,6 +37,19 @@ namespace career.API.Controllers
 
 
 
+        /// <summary>
+        /// id-ye gore layihe
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("getProjectById")]
+        public IActionResult GetProjectById(int id)
+        {
+            var result = _projectService.GetById(id);
+            return Ok(result);
+        }
+
+
 
         /// <summary>
         /// layihe elave etmek

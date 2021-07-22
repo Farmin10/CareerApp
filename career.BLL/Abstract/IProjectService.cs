@@ -13,6 +13,7 @@ namespace career.BLL.Abstract
         ProjectForAddDto AddProject(ProjectForAddDto projectForAddDto);
         ProjectForUpdateDto UpdateProject(ProjectForUpdateDto projectForUpdateDto);
         List<ProjectForGetDto> GetAll();
+        ProjectForGetDto GetById(int id);
         void DeleteProject(int id);
     }
 }

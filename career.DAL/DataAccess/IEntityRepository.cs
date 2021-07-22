@@ -18,6 +18,6 @@ namespace career.DAL.DataAccess
         void Update(T entity);
         void AddRange(List<T> entity);
         void UpdateRange(List<T> entity);
-        int Count(Expression<Func<T, bool>> predicate);
+        int Count(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
     }
 }

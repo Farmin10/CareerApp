@@ -35,22 +35,26 @@ namespace career.DAL.DataAccess.EntityFramework
             _dbSet.AddRange(entity);
         }
 
-        public int Count(Expression<Func<T, bool>> predicate)//,params Expression<Func<T,object>>[] includeProperties)
+        public int Count(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = _dbSet;
-            //if (includeProperties!=null)
-            //{
-            //    foreach (var item in includeProperties)
-            //    {
-            //        query = item;
-            //    }
-            //}
-            return _dbSet.Count(predicate);
+            if (predicate!=null)
+            {
+                query = query.Where(predicate);
+            }
+            if (includeProperties != null)
+            {
+                foreach (var item in includeProperties)
+                {
+                    query = query.Include(item);
+                }
+            }
+            return query.Count();
         }
 
         public void Delete(T entity)
         {
-             _dbSet.Remove(entity);
+            _dbSet.Remove(entity);
         }
 
         public List<T> Get()

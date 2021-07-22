@@ -65,6 +65,13 @@ namespace career.BLL.Concrete
             return mappedProject;
         }
 
+        public ProjectForGetDto GetById(int id)
+        {
+            var result = _unitOfWork.ProjectDal.GetAll().SingleOrDefault(x=>x.ProjectId==id);
+            var mappedProject = _mapper.Map<ProjectForGetDto>(result);
+            return mappedProject;
+        }
+
         public ProjectForUpdateDto UpdateProject(ProjectForUpdateDto projectForUpdateDto)
         {
             var mappedProject = _mapper.Map<Project>(projectForUpdateDto);

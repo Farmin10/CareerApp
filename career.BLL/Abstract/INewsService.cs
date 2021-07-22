@@ -1,4 +1,5 @@
-﻿using career.DTO.NewsDTO;
+﻿using career.DAL.Utilities.Results;
+using career.DTO.NewsDTO;
 using career.DTO.Responces;
 using System;
 using System.Collections.Generic;
