@@ -33,14 +33,12 @@ namespace career.BLL.Concrete
             var mappedProject = _mapper.Map<Project>(projectForAddDto);
             _unitOfWork.ProjectDal.Add(mappedProject);
             _unitOfWork.Commit();
-            PictureForAddDto pictureForAddDto = new PictureForAddDto();
-            foreach (var item in projectForAddDto.PicturesPath)
+            foreach (var item in projectForAddDto.Pictures)
             {
-                pictureForAddDto = new PictureForAddDto { PicturePath = item ,ProjectId=mappedProject.ProjectId};
+                var pictureForAddDto = new PictureForAddDto { PicturePath = item.PicturePath, ProjectId = mappedProject.ProjectId };
                 _pictureService.AddPicture(pictureForAddDto);
-                _unitOfWork.Commit();
             }
-           
+
             return projectForAddDto;
         }
 
@@ -77,12 +75,13 @@ namespace career.BLL.Concrete
             foreach (var item in deletedPicture)
             {
                 _unitOfWork.PictureDal.Delete(item);
+                _unitOfWork.Commit();
             }
 
             PictureForAddDto pictureForAddDto = new PictureForAddDto();
-            foreach (var item in projectForUpdateDto.PicturesPath)
+            foreach (var item in projectForUpdateDto.Pictures)
             {
-                pictureForAddDto = new PictureForAddDto { PicturePath = item, ProjectId = mappedProject.ProjectId };
+                pictureForAddDto = new PictureForAddDto { PicturePath = item.PicturePath, ProjectId = mappedProject.ProjectId };
                 _pictureService.AddPicture(pictureForAddDto);
                 _unitOfWork.Commit();
             }

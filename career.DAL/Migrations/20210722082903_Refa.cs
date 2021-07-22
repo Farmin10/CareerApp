@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace career.DAL.Migrations
 {
-    public partial class First : Migration
+    public partial class Refa : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,7 +48,23 @@ namespace career.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Project",
+                name: "News",
+                columns: table => new
+                {
+                    NewsId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Header = table.Column<string>(type: "text", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: true),
+                    NewsImage = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_News", x => x.NewsId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Projects",
                 columns: table => new
                 {
                     ProjectId = table.Column<int>(type: "integer", nullable: false)
@@ -63,7 +79,7 @@ namespace career.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Project", x => x.ProjectId);
+                    table.PrimaryKey("PK_Projects", x => x.ProjectId);
                 });
 
             migrationBuilder.CreateTable(
@@ -103,7 +119,7 @@ namespace career.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Picture",
+                name: "Pictures",
                 columns: table => new
                 {
                     PictureId = table.Column<int>(type: "integer", nullable: false)
@@ -114,11 +130,11 @@ namespace career.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Picture", x => x.PictureId);
+                    table.PrimaryKey("PK_Pictures", x => x.PictureId);
                     table.ForeignKey(
-                        name: "FK_Picture_Project_ProjectId",
+                        name: "FK_Pictures_Projects_ProjectId",
                         column: x => x.ProjectId,
-                        principalTable: "Project",
+                        principalTable: "Projects",
                         principalColumn: "ProjectId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -186,6 +202,32 @@ namespace career.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Appeals",
+                columns: table => new
+                {
+                    AppealId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CandidateName = table.Column<string>(type: "text", nullable: false),
+                    CandidateSurname = table.Column<string>(type: "text", nullable: false),
+                    VacancyId = table.Column<int>(type: "integer", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    ApplyDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ResumePath = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appeals", x => x.AppealId);
+                    table.ForeignKey(
+                        name: "FK_Appeals_Vacancies_VacancyId",
+                        column: x => x.VacancyId,
+                        principalTable: "Vacancies",
+                        principalColumn: "VacancyId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VacancyInformation",
                 columns: table => new
                 {
@@ -248,44 +290,13 @@ namespace career.DAL.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Departmants",
-                columns: new[] { "DepartmantId", "IsDeleted", "Name", "ParentDepartmantId" },
-                values: new object[,]
-                {
-                    { 10, false, "Layihələndirmə", null },
-                    { 11, false, "Proqram təminatının hazırlanması", null },
-                    { 12, false, "Ümumi ", null },
-                    { 13, false, "Verilənlər bazasının idarə edilməsi və şəbəkə inzibatçılığı", null },
-                    { 14, false, "Maliyyə", null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "VacancyTypes",
-                columns: new[] { "VacancyTypeId", "IsDeleted", "Key", "Name" },
-                values: new object[,]
-                {
-                    { 1, false, "intern", "Təcrübə proqramı" },
-                    { 2, false, "work", "İş vakansiyası" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Positions",
-                columns: new[] { "PositionId", "DepartmantId", "IsDeleted", "Name" },
-                values: new object[,]
-                {
-                    { 15, 10, false, "Şöbə müdiri" },
-                    { 10, 11, false, "Kiçik mütəxəssis" },
-                    { 11, 12, false, "Mütəxəssis" },
-                    { 13, 12, false, "Baş mütəxəssis" },
-                    { 12, 13, false, "Apararıcı mütəxəssis" },
-                    { 17, 13, false, "Direktor" },
-                    { 14, 14, false, "Sektor müdiri" },
-                    { 16, 14, false, "Direktor müavini" }
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Appeals_VacancyId",
+                table: "Appeals",
+                column: "VacancyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departmants_ParentDepartmantId",
@@ -303,8 +314,8 @@ namespace career.DAL.Migrations
                 column: "PositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Picture_ProjectId",
-                table: "Picture",
+                name: "IX_Pictures_ProjectId",
+                table: "Pictures",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
@@ -336,10 +347,16 @@ namespace career.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Appeals");
+
+            migrationBuilder.DropTable(
                 name: "Files");
 
             migrationBuilder.DropTable(
-                name: "Picture");
+                name: "News");
+
+            migrationBuilder.DropTable(
+                name: "Pictures");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -351,7 +368,7 @@ namespace career.DAL.Migrations
                 name: "VacancyRequirements");
 
             migrationBuilder.DropTable(
-                name: "Project");
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "Employees");

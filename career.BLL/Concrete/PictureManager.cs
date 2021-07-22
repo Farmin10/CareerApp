@@ -27,7 +27,6 @@ namespace career.BLL.Concrete
         {
             var mappedPicture = _mapper.Map<Picture>(pictureForAddDto);
             _unitOfWork.PictureDal.Add(mappedPicture);
-            _unitOfWork.Commit();
             return pictureForAddDto;
         }
 

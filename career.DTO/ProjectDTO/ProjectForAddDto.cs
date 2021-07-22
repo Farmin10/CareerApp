@@ -1,4 +1,5 @@
-﻿using career.Entity.Concrete;
+﻿using career.DTO.PictureDTO;
+using career.Entity.Concrete;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace career.DTO.ProjectDTO
         public string ProjectName { get; set; }
         public string ProjectAbbreviatura { get; set; }
         public string ProjectDescription { get; set; }
-        public List<string> PicturesPath { get; set; }
+        public List<PictureForGetDto> Pictures { get; set; }
         public string ProjectLink { get; set; }
         public bool IsPublicProject { get; set; }
         public DateTime CreatedDate { get; set; }

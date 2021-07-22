@@ -10,8 +10,8 @@ using career.DAL.Concrete.EntityFramework;
 namespace career.DAL.Migrations
 {
     [DbContext(typeof(CareerContext))]
-    [Migration("20210709074220_Appeal")]
-    partial class Appeal
+    [Migration("20210722082903_Refa")]
+    partial class Refa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,38 +85,6 @@ namespace career.DAL.Migrations
                     b.HasIndex("ParentDepartmantId");
 
                     b.ToTable("Departmants");
-
-                    b.HasData(
-                        new
-                        {
-                            DepartmantId = 10,
-                            IsDeleted = false,
-                            Name = "Layihələndirmə"
-                        },
-                        new
-                        {
-                            DepartmantId = 11,
-                            IsDeleted = false,
-                            Name = "Proqram təminatının hazırlanması"
-                        },
-                        new
-                        {
-                            DepartmantId = 12,
-                            IsDeleted = false,
-                            Name = "Ümumi "
-                        },
-                        new
-                        {
-                            DepartmantId = 13,
-                            IsDeleted = false,
-                            Name = "Verilənlər bazasının idarə edilməsi və şəbəkə inzibatçılığı"
-                        },
-                        new
-                        {
-                            DepartmantId = 14,
-                            IsDeleted = false,
-                            Name = "Maliyyə"
-                        });
                 });
 
             modelBuilder.Entity("career.Entity.Concrete.Employee", b =>
@@ -198,6 +166,31 @@ namespace career.DAL.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("career.Entity.Concrete.News", b =>
+                {
+                    b.Property<int>("NewsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("NewsImage")
+                        .HasColumnType("text");
+
+                    b.HasKey("NewsId");
+
+                    b.ToTable("News");
+                });
+
             modelBuilder.Entity("career.Entity.Concrete.Picture", b =>
                 {
                     b.Property<int>("PictureId")
@@ -244,64 +237,6 @@ namespace career.DAL.Migrations
                     b.HasIndex("DepartmantId");
 
                     b.ToTable("Positions");
-
-                    b.HasData(
-                        new
-                        {
-                            PositionId = 10,
-                            DepartmantId = 11,
-                            IsDeleted = false,
-                            Name = "Kiçik mütəxəssis"
-                        },
-                        new
-                        {
-                            PositionId = 11,
-                            DepartmantId = 12,
-                            IsDeleted = false,
-                            Name = "Mütəxəssis"
-                        },
-                        new
-                        {
-                            PositionId = 12,
-                            DepartmantId = 13,
-                            IsDeleted = false,
-                            Name = "Apararıcı mütəxəssis"
-                        },
-                        new
-                        {
-                            PositionId = 13,
-                            DepartmantId = 12,
-                            IsDeleted = false,
-                            Name = "Baş mütəxəssis"
-                        },
-                        new
-                        {
-                            PositionId = 14,
-                            DepartmantId = 14,
-                            IsDeleted = false,
-                            Name = "Sektor müdiri"
-                        },
-                        new
-                        {
-                            PositionId = 15,
-                            DepartmantId = 10,
-                            IsDeleted = false,
-                            Name = "Şöbə müdiri"
-                        },
-                        new
-                        {
-                            PositionId = 16,
-                            DepartmantId = 14,
-                            IsDeleted = false,
-                            Name = "Direktor müavini"
-                        },
-                        new
-                        {
-                            PositionId = 17,
-                            DepartmantId = 13,
-                            IsDeleted = false,
-                            Name = "Direktor"
-                        });
                 });
 
             modelBuilder.Entity("career.Entity.Concrete.Project", b =>
@@ -486,22 +421,6 @@ namespace career.DAL.Migrations
                     b.HasKey("VacancyTypeId");
 
                     b.ToTable("VacancyTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            VacancyTypeId = 1,
-                            IsDeleted = false,
-                            Key = "intern",
-                            Name = "Təcrübə proqramı"
-                        },
-                        new
-                        {
-                            VacancyTypeId = 2,
-                            IsDeleted = false,
-                            Key = "work",
-                            Name = "İş vakansiyası"
-                        });
                 });
 
             modelBuilder.Entity("career.Entity.Concrete.Appeal", b =>
@@ -566,7 +485,7 @@ namespace career.DAL.Migrations
                     b.HasOne("career.Entity.Concrete.Employee", "Employee")
                         .WithMany("Users")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Employee");
