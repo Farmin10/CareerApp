@@ -13,7 +13,7 @@ namespace career.DAL.Concrete.EntityFramework.Mappings
     {
         public void Configure(EntityTypeBuilder<News> builder)
         {
-            builder.HasQueryFilter(e => e.IsDeleted == false);
+            builder.HasQueryFilter(e => !e.IsDeleted);
         }
     }
 }

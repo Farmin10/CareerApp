@@ -1,4 +1,5 @@
-﻿using career.DAL.DataAccess;
+﻿using career.DAL.Concrete.EntityFramework.Mappings;
+using career.DAL.DataAccess;
 using career.Entity.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,8 +16,6 @@ namespace career.DAL.Concrete.EntityFramework
         {
 
         }
-       
-
         public DbSet<User> Users { get; set; }
         public DbSet<VacancyType> VacancyTypes { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
@@ -30,5 +29,22 @@ namespace career.DAL.Concrete.EntityFramework
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Appeal> Appeals { get; set; }
         public DbSet<News> News { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new AppealMap());
+            modelBuilder.ApplyConfiguration(new DepartmantMap());
+            modelBuilder.ApplyConfiguration(new EmployeeMap());
+            modelBuilder.ApplyConfiguration(new FileMap());
+            modelBuilder.ApplyConfiguration(new NewsMap());
+            modelBuilder.ApplyConfiguration(new PictureMap());
+            modelBuilder.ApplyConfiguration(new PositionMap());
+            modelBuilder.ApplyConfiguration(new ProjectMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new VacancyMap());
+            modelBuilder.ApplyConfiguration(new VacancyInformationMap());
+            modelBuilder.ApplyConfiguration(new VacancyRequirementMap());
+            modelBuilder.ApplyConfiguration(new VacancyTypeMap());
+        }
     }
 }
