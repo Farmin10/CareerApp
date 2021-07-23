@@ -5,6 +5,7 @@ using career.DAL.DataAccess;
 using career.DTO;
 using career.DTO.PictureDTO;
 using career.DTO.ProjectDTO;
+using career.DTO.Responses;
 using career.Entity.Concrete;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,18 +29,20 @@ namespace career.BLL.Concrete
             _mapper = mapper;
             _pictureService = pictureService;
         }
-        public ProjectForAddDto AddProject(ProjectForAddDto projectForAddDto)
+        public ProjectForAddResponse AddProject(ProjectForAddDto projectForAddDto)
         {
             var mappedProject = _mapper.Map<Project>(projectForAddDto);
             _unitOfWork.ProjectDal.Add(mappedProject);
             _unitOfWork.Commit();
             foreach (var item in projectForAddDto.Pictures)
             {
-                var pictureForAddDto = new PictureForAddDto { PicturePath = item.PicturePath, ProjectId = mappedProject.ProjectId };
-                _pictureService.AddPicture(pictureForAddDto);
+                var result = _mapper.Map<Picture>(projectForAddDto);
+               // var pictureForAddDto = new PictureForAddDto { PicturePath = item.PicturePath, ProjectId = mappedProject.ProjectId };
+                _unitOfWork.PictureDal.Add(result);
             }
-
-            return projectForAddDto;
+            var project = _unitOfWork.ProjectDal.GetAll().SingleOrDefault(x => x.ProjectId == mappedProject.ProjectId);
+            var response = _mapper.Map<ProjectForAddResponse>(project);
+            return response;
         }
 
         public void DeleteProject(int id)

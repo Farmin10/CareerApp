@@ -1,4 +1,5 @@
 ﻿using career.DTO.ProjectDTO;
+using career.DTO.Responses;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace career.BLL.Abstract
 {
     public interface IProjectService
     {
-        ProjectForAddDto AddProject(ProjectForAddDto projectForAddDto);
+        ProjectForAddResponse AddProject(ProjectForAddDto projectForAddDto);
         ProjectForUpdateDto UpdateProject(ProjectForUpdateDto projectForUpdateDto);
         List<ProjectForGetDto> GetAll();
         ProjectForGetDto GetById(int id);

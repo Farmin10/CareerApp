@@ -9,6 +9,7 @@ using career.DTO.PictureDTO;
 using career.DTO.PositionDTO;
 using career.DTO.ProjectDTO;
 using career.DTO.Responces;
+using career.DTO.Responses;
 using career.DTO.UserDTO;
 using career.DTO.Utility;
 using career.DTO.VacancyDTO;
@@ -84,6 +85,7 @@ namespace career.DAL.Mappings
 
 
             CreateMap<Picture, PictureForAddDto>().ReverseMap();
+            CreateMap<Picture, ProjectForAddDto>().ReverseMap();
             CreateMap<Picture, PictureForGetDto>().ReverseMap();
             CreateMap<Picture, PictureForUpdateDto>().ReverseMap();
 
@@ -92,6 +94,7 @@ namespace career.DAL.Mappings
 
 
             CreateMap<Project, ProjectForAddDto>().ReverseMap();
+            CreateMap<Project, ProjectForAddResponse>().ReverseMap();
             CreateMap<Project, ProjectForGetDto>().ReverseMap();
             CreateMap<Project, ProjectForUpdateDto>().ReverseMap();
             CreateMap<Project, ProjectForDeleteDto>().ReverseMap();
