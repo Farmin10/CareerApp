@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using career.DTO.Utility;
 using career.DTO.Responces;
+using career.Core.Transaction;
 
 namespace career.BLL.Concrete
 {
@@ -28,6 +29,7 @@ namespace career.BLL.Concrete
             _unitOfWork = unitOfWork;
         }
 
+        [TransactionScopeAspect]
         public VacancyForAddResponse AddVacancy(VacancyAddDto vacancyAddDto)
         {
             #region VacancyAdd

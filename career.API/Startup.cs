@@ -46,66 +46,19 @@ namespace career.API
         {
 
             services.AddControllers();
+            services.AddDbContext<CareerContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
 
             services.AddTransient<CareerContext>();
 
             services.AddAutoMapper(typeof(MappingProfiles));
 
-
-            #region DependencyResolvers
-            services.AddScoped<IVacancyTypeService, VacancyTypeManager>();
-            services.AddTransient<IVacancyTypeDal, EfVacancyTypeDal>();
-
-            services.AddScoped<IDepartmantService, DepartmantManager>();
-            services.AddTransient<IDepartmantDal, EfDepartmantDal>();
-
-            services.AddScoped<ICountService, CountManager>();
-
-            services.AddScoped<IPositionDal, EfPositionDal>();
-            services.AddTransient<IPositionService, PositionManager>();
-
-            services.AddScoped<IVacancyService, VacancyManager>();
-            services.AddTransient<IVacancyDal, EfVacancyDal>();
-
-            services.AddScoped<IUserDal, EfUserDal>();
-            services.AddTransient<IUserService, UserManager>();
-
-            services.AddScoped<IAuthService, AuthManager>();
-            services.AddScoped<ITokenHelper, JwtHelper>();
-
-
-            services.AddScoped<IEmployeeService, EmployeeManager>();
-            services.AddTransient<IEmployeeDal, EfEmployeeDal>();
-
-            services.AddScoped<IPictureService, PictureManager>();
-            services.AddTransient<IPictureDal, EfPictureDal>();
-
-            services.AddScoped<IProjectDal, EfProjectDal>();
-            services.AddTransient<IProjectService, ProjectManager>();
-
-
-            services.AddScoped<IUnitOfWork, UnitOfwork>();
-
-            services.AddScoped<IVacancyInformationService, VacancyInformationManager>();
-            services.AddTransient<IVacancyInformationDal, EfVacancyInformationDal>();
-
-            services.AddTransient<IVacancyRequirementService, VacancyRequirementManager>();
-            services.AddTransient<IVacancyRequirementDal, EfVacancyRequirementDal>();
-
-            services.AddTransient<IAppealService, AppealManager>();
-            services.AddTransient<IAppealDal, EfAppealDal>();
-
-            services.AddTransient<INewsService, NewsManager>();
-            services.AddTransient<INewsDal, EfNewsDal>();
-
-            services.AddTransient<IFileService, FileManager>();
-            services.AddTransient<IFileDal, EfFileDal>();
-            #endregion
-
-
-            services.AddDbContext<CareerContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddDependencyResolvers(new ICoreModule[] {
+            new CoreModule()
+            });
+   
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
@@ -124,9 +77,7 @@ namespace career.API
                         
                     };
                 });
-            services.AddDependencyResolvers(new ICoreModule[] {
-            new CoreModule()
-            });
+           
 
             services.AddSwaggerDocumentation();
 

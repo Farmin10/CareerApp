@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using career.BLL.Abstract;
 using career.DAL.DataAccess;
 using career.DTO;
@@ -37,7 +36,6 @@ namespace career.BLL.Concrete
             foreach (var item in projectForAddDto.Pictures)
             {
                 var result = _mapper.Map<Picture>(projectForAddDto);
-               // var pictureForAddDto = new PictureForAddDto { PicturePath = item.PicturePath, ProjectId = mappedProject.ProjectId };
                 _unitOfWork.PictureDal.Add(result);
             }
             var project = _unitOfWork.ProjectDal.GetAll().SingleOrDefault(x => x.ProjectId == mappedProject.ProjectId);
