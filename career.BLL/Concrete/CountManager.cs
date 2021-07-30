@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using career.BLL.Abstract;
+using career.BLL.Constants;
 using career.DAL.DataAccess;
+using career.DAL.Utilities.Results;
 using career.DTO.Responses;
 using System;
 using System.Collections.Generic;
@@ -20,7 +22,7 @@ namespace career.BLL.Concrete
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public CountResponse Count()
+        public IDataResult<CountResponse> Count()
         {
             var employeeCount = _unitOfWork.EmployeeDal.Count(null);
             var vacancyCount= _unitOfWork.VacancyDal.Count(null);
@@ -29,7 +31,7 @@ namespace career.BLL.Concrete
             var response = new CountResponse { 
             CountOfAppeal=appealCount,CountOfEmployee=employeeCount,CountOfProject=projectCount,CountOfVacancy=vacancyCount
             };
-            return response;
+            return new SuccessDataResult<CountResponse>(response,Messages.DatasListedSuccessfully);
         }
     }
 }

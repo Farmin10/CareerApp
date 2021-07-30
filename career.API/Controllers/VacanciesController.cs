@@ -83,8 +83,8 @@ namespace career.API.Controllers
         [HttpDelete("deleteVacancy")]
         public IActionResult DeleteVacancy(int id)
         {
-             _vacancyService.DeleteVacancy(id);
-            return Ok();
+             var result= _vacancyService.DeleteVacancy(id);
+            return Ok(result);
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using career.DTO.FileDTO;
+using career.DAL.Utilities.Results;
+using career.BLL.Constants;
 
 namespace career.BLL.Concrete
 {
@@ -28,7 +30,7 @@ namespace career.BLL.Concrete
             _mapper = mapper;
         }
 
-        public FileUploadDto UploadFile(IFormFile file)
+        public IDataResult<FileUploadDto> UploadFile(IFormFile file)
         {
             if (file.Length <= 0) return null;
             var fileName = Guid.NewGuid() + file.FileName;
@@ -45,7 +47,7 @@ namespace career.BLL.Concrete
 
 
             _unitOfWork.Commit();
-            return mappedFile;
+            return new SuccessDataResult<FileUploadDto>(mappedFile,Messages.FileUploaded);
         }
 
        
@@ -72,18 +74,6 @@ namespace career.BLL.Concrete
             }
         }
 
-
-        public void DownloadFile(string subDirectory)
-        {
-            //var path= Path.Combine(subDirectory);
-            //var memory = new MemoryStream();
-            //using (var stream=new FileStream(path,FileMode.Open))
-            //{
-            //    stream.CopyTo(memory);
-            //}
-            //var bytes = System.IO.File.ReadAllBytesAsync(path);
-            //File(bytes,GetMimeTypes(),Path.GetExtension);
-        }
 
 
         public Dictionary<string, string> GetMimeTypes()

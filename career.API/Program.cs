@@ -21,6 +21,17 @@ namespace career.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder=>
+            webBuilder.UseSentry(o =>
+            {
+                o.Dsn = "https://47ee94c11dc44db2b82a26728154643c@o933247.ingest.sentry.io/5882523";
+                // When configuring for the first time, to see what the SDK is doing:
+                o.Debug = true;
+                // Set traces_sample_rate to 1.0 to capture 100% of transactions for performance monitoring.
+                // We recommend adjusting this value in production.
+                o.TracesSampleRate = 1.0;
+            })
+            )
             .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>(builder => {
                     builder.RegisterModule(new BusinessModule());

@@ -53,17 +53,17 @@ namespace career.BLL.Concrete
         public async Task<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByUserName(userForLoginDto.UserName);
-            if (userToCheck == null)
+            if (userToCheck.Data == null)
             {
                 return null;
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
             {
-                return userToCheck;
+                return userToCheck.Data;
             }
 
-            return userToCheck;
+            return userToCheck.Data;
         }
 
         public async Task<bool> UserExists(string userName)

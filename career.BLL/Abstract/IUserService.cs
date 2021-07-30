@@ -1,4 +1,5 @@
-﻿using career.DTO.Responces;
+﻿using career.DAL.Utilities.Results;
+using career.DTO.Responces;
 using career.DTO.UserDTO;
 using career.Entity.Concrete;
 using System;
@@ -12,8 +13,8 @@ namespace career.BLL.Abstract
 
     public interface IUserService
     {
-        Task Add(User user);
-        User GetByUserName(string userName);
-        UserForUpdateResponse UpdateUser(UserForUpdateDto userForUpdateDto,string password);
+        Task<IResult> Add(User user);
+        IDataResult<User> GetByUserName(string userName);
+        IDataResult<UserForUpdateResponse> UpdateUser(UserForUpdateDto userForUpdateDto,string password);
     }
 }

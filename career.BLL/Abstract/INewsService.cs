@@ -11,10 +11,10 @@ namespace career.BLL.Abstract
 {
     public interface INewsService
     {
-        List<NewsForGetDto> GetNews();
-        NewsResponse AddNews(NewsForAddDto newsForAddDto);
-        NewsForGetDto GetNewsById(int id);
-        NewsResponse UpdateNews(NewsForUpdateDto newsForUpdateDto);
-        void Delete(int id);
+        IDataResult<List<NewsForGetDto>> GetNews();
+        IDataResult<NewsResponse> AddNews(NewsForAddDto newsForAddDto);
+        IDataResult<NewsForGetDto> GetNewsById(int id);
+        IDataResult<NewsResponse> UpdateNews(NewsForUpdateDto newsForUpdateDto);
+        IResult Delete(int id);
     }
 }

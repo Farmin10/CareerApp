@@ -25,49 +25,89 @@ namespace career.BLL.Concrete
             _mapper = mapper;
         }
 
-        public NewsResponse AddNews(NewsForAddDto newsForAddDto)
+        public IDataResult<NewsResponse> AddNews(NewsForAddDto newsForAddDto)
         {
-            var mappedNews = _mapper.Map<News>(newsForAddDto);
-            _unitOfWork.NewsDal.Add(mappedNews);
-            _unitOfWork.Commit();
+            try
+            {
+                var mappedNews = _mapper.Map<News>(newsForAddDto);
+                _unitOfWork.NewsDal.Add(mappedNews);
+                _unitOfWork.Commit();
 
-            var news=_unitOfWork.NewsDal.Get().SingleOrDefault(x => x.NewsId == mappedNews.NewsId);
-            var response = _mapper.Map<NewsResponse>(news);
-            return response;
+                var news = _unitOfWork.NewsDal.Get().SingleOrDefault(x => x.NewsId == mappedNews.NewsId);
+                var response = _mapper.Map<NewsResponse>(news);
+                return new SuccessDataResult<NewsResponse>(response,Messages.DataSuccessfullyAdded);
+            }
+            catch (Exception)
+            {
+                return new ErrorDataResult<NewsResponse>(Messages.ErrorOccured);
+            }
+            
         }
 
-        public void Delete(int id)
+        public IResult Delete(int id)
         {
-            var news = _unitOfWork.NewsDal.Get().SingleOrDefault(x => x.NewsId == id);
-            news.IsDeleted = true;
-            _unitOfWork.NewsDal.Update(news);
-            _unitOfWork.Commit();
+            try
+            {
+                var news = _unitOfWork.NewsDal.Get().SingleOrDefault(x => x.NewsId == id);
+                news.IsDeleted = true;
+                _unitOfWork.NewsDal.Update(news);
+                _unitOfWork.Commit();
+                return new SuccessResult(Messages.DataDeleted);
+            }
+            catch (Exception)
+            {
+                return new ErrorResult(Messages.ErrorOccured);
+            }
+            
         }
 
-        public List<NewsForGetDto> GetNews()
+        public IDataResult<List<NewsForGetDto>> GetNews()
         {
-            var result = _unitOfWork.NewsDal.Get();
-            var mappedNews = _mapper.Map<List<NewsForGetDto>>(result);
-            return mappedNews;
+            try
+            {
+                var result = _unitOfWork.NewsDal.Get();
+                var mappedNews = _mapper.Map<List<NewsForGetDto>>(result);
+                return new SuccessDataResult<List<NewsForGetDto>>(mappedNews,Messages.DatasListedSuccessfully);
+            }
+            catch (Exception)
+            {
+                return new ErrorDataResult<List<NewsForGetDto>>(Messages.DatasListedSuccessfully);
+            }
+           
         }
 
-        public NewsForGetDto GetNewsById(int id)
+        public IDataResult<NewsForGetDto> GetNewsById(int id)
         {
-            var result = _unitOfWork.NewsDal.Get(x => x.NewsId == id).SingleOrDefault();
-            var mappedNews = _mapper.Map<NewsForGetDto>(result);
-            return mappedNews;
+            try
+            {
+                var result = _unitOfWork.NewsDal.Get(x => x.NewsId == id).SingleOrDefault();
+                var mappedNews = _mapper.Map<NewsForGetDto>(result);
+                return new SuccessDataResult<NewsForGetDto>(mappedNews, Messages.DataListedSuccessfully);
+            }
+            catch (Exception)
+            {
+                return new SuccessDataResult<NewsForGetDto>(Messages.ErrorOccured);
+            }
+           
         }
 
-        public NewsResponse UpdateNews(NewsForUpdateDto newsForUpdateDto)
+        public IDataResult<NewsResponse> UpdateNews(NewsForUpdateDto newsForUpdateDto)
         {
-            var mappedNews = _mapper.Map<News>(newsForUpdateDto);
-            mappedNews.NewsId = newsForUpdateDto.NewsId;
-            _unitOfWork.NewsDal.Update(mappedNews);
-            _unitOfWork.Commit();
+            try
+            {
+                var mappedNews = _mapper.Map<News>(newsForUpdateDto);
+                _unitOfWork.NewsDal.Update(mappedNews);
+                _unitOfWork.Commit();
 
-            var news = _unitOfWork.NewsDal.Get().SingleOrDefault(x => x.NewsId == mappedNews.NewsId);
-            var result = _mapper.Map<NewsResponse>(news);
-            return result;
+                var news = _unitOfWork.NewsDal.Get().SingleOrDefault(x => x.NewsId == mappedNews.NewsId);
+                var result = _mapper.Map<NewsResponse>(news);
+                return new SuccessDataResult<NewsResponse>(result,Messages.DataUpdated);
+            }
+            catch (Exception)
+            {
+                return new ErrorDataResult<NewsResponse>(Messages.ErrorOccured);
+            }
+            
         }
     }
 }

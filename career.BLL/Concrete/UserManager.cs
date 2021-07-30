@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using career.BLL.Abstract;
+using career.BLL.Constants;
 using career.DAL.DataAccess;
+using career.DAL.Utilities.Results;
 using career.DAL.Utilities.Security.Hashing;
 using career.DTO.Responces;
 using career.DTO.UserDTO;
@@ -24,32 +26,58 @@ namespace career.BLL.Concrete
             _mapper = mapper;
         }
 
-        public async Task Add(User user)
+        public async Task<IResult> Add(User user)
         {
-            await _unitOfWork.UserDal.AddAsync(user);
+            try
+            {
+                await _unitOfWork.UserDal.AddAsync(user);
+                return new SuccessResult(Messages.DataSuccessfullyAdded);
+            }
+            catch (Exception)
+            {
+                return new ErrorResult(Messages.ErrorOccured);
+            }
+            
         }
 
-        public User GetByUserName(string userName)
+        public IDataResult<User> GetByUserName(string userName)
         {
-            return _unitOfWork.UserDal.Get(u => u.UserName == userName).FirstOrDefault();
+            try
+            {
+                var result = _unitOfWork.UserDal.Get(u => u.UserName == userName).FirstOrDefault();
+                return new SuccessDataResult<User>(result,Messages.DataListedSuccessfully);
+            }
+            catch (Exception)
+            {
+
+                return new ErrorDataResult<User>(Messages.ErrorOccured);
+            }
+            
         }
 
-        public UserForUpdateResponse UpdateUser(UserForUpdateDto userForUpdateDto,string password)
+        public IDataResult<UserForUpdateResponse> UpdateUser(UserForUpdateDto userForUpdateDto,string password)
         {
+            try
+            {
+                byte[] passwordHash, passwordSalt;
+                HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                var result = _unitOfWork.UserDal.Get(x => x.UserId == userForUpdateDto.UserId).FirstOrDefault();
+                result.EmployeeId = userForUpdateDto.EmployeeId;
+                result.UserName = userForUpdateDto.UserName;
+                result.PasswordHash = passwordHash;
+                result.PasswordSalt = passwordSalt;
+                _unitOfWork.UserDal.Update(result);
+                _unitOfWork.Commit();
 
-            byte[] passwordHash, passwordSalt;
-            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            var result = _unitOfWork.UserDal.Get(x => x.UserId == userForUpdateDto.UserId).FirstOrDefault();
-            result.EmployeeId = userForUpdateDto.EmployeeId;
-            result.UserName = userForUpdateDto.UserName;
-            result.PasswordHash = passwordHash;
-            result.PasswordSalt = passwordSalt;
-            _unitOfWork.UserDal.Update(result);
-            _unitOfWork.Commit();
-
-            var mappedUser = _unitOfWork.UserDal.GetUsers().SingleOrDefault(x => x.UserId == result.UserId);
-            var response = _mapper.Map<UserForUpdateResponse>(mappedUser);
-            return response;
+                var mappedUser = _unitOfWork.UserDal.GetUsers().SingleOrDefault(x => x.UserId == result.UserId);
+                var response = _mapper.Map<UserForUpdateResponse>(mappedUser);
+                return new SuccessDataResult<UserForUpdateResponse>(response,Messages.DataUpdated);
+            }
+            catch (Exception)
+            {
+                return new ErrorDataResult<UserForUpdateResponse>(Messages.ErrorOccured);
+            }
+           
         }
     }
 }

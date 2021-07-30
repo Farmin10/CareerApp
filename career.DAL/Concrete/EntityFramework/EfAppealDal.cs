@@ -21,8 +21,8 @@ namespace career.DAL.Concrete.EntityFramework
 
         public List<Appeal> GetAll()
         {
-           var result= _context.Appeals.Include(x => x.Vacancy).Where(x => x.VacancyId == x.Vacancy.VacancyId).ToList();
-            return result;
+           var result= _context.Appeals.Include(x => x.Vacancy).ToList();
+             return result;
         }
     }
 }

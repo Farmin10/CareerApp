@@ -1,4 +1,5 @@
-﻿using career.DTO.Utility;
+﻿using career.DAL.Utilities.Results;
+using career.DTO.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace career.BLL.Abstract
 {
     public interface IPositionService
     {
-        List<FilterDTO> GetPositionFilters();
+        IDataResult<List<FilterDTO>> GetPositionFilters();
     }
 }

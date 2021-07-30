@@ -86,8 +86,8 @@ namespace career.API.Controllers
         [HttpDelete]
         public IActionResult DeleteAppeal(int id)
         {
-            _appealService.Delete(id);
-            return Ok();
+            var result=  _appealService.Delete(id);
+            return Ok(result);
         }
     }
 }

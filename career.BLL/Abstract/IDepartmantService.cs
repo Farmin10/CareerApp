@@ -1,4 +1,5 @@
-﻿using career.DTO.DepartmantDTO;
+﻿using career.DAL.Utilities.Results;
+using career.DTO.DepartmantDTO;
 using career.DTO.Utility;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,6 @@ namespace career.BLL.Abstract
     public interface IDepartmantService
     {
         List<GetDepartmantDto> GetAll();
-        List<FilterDTO> GetAllWithFilter();
+        IDataResult<List<FilterDTO>> GetAllWithFilter();
     }
 }

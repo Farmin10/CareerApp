@@ -1,4 +1,5 @@
-﻿using career.DTO.ProjectDTO;
+﻿using career.DAL.Utilities.Results;
+using career.DTO.ProjectDTO;
 using career.DTO.Responses;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -11,10 +12,10 @@ namespace career.BLL.Abstract
 {
     public interface IProjectService
     {
-        ProjectForAddResponse AddProject(ProjectForAddDto projectForAddDto);
-        ProjectForUpdateDto UpdateProject(ProjectForUpdateDto projectForUpdateDto);
-        List<ProjectForGetDto> GetAll();
-        ProjectForGetDto GetById(int id);
-        void DeleteProject(int id);
+        IDataResult<ProjectForAddResponse> AddProject(ProjectForAddDto projectForAddDto);
+        IDataResult<ProjectForUpdateDto> UpdateProject(ProjectForUpdateDto projectForUpdateDto);
+        IDataResult<List<ProjectForGetDto>> GetAll();
+        IDataResult<ProjectForGetDto> GetById(int id);
+        IResult DeleteProject(int id);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using career.BLL.Abstract;
+using career.BLL.Constants;
 using career.DAL.DataAccess;
+using career.DAL.Utilities.Results;
 using career.DTO;
 using career.DTO.PictureDTO;
 using career.DTO.ProjectDTO;
@@ -28,72 +30,115 @@ namespace career.BLL.Concrete
             _mapper = mapper;
             _pictureService = pictureService;
         }
-        public ProjectForAddResponse AddProject(ProjectForAddDto projectForAddDto)
+        public IDataResult<ProjectForAddResponse> AddProject(ProjectForAddDto projectForAddDto)
         {
-            var mappedProject = _mapper.Map<Project>(projectForAddDto);
-            _unitOfWork.ProjectDal.Add(mappedProject);
-            _unitOfWork.Commit();
-            foreach (var item in projectForAddDto.Pictures)
+            try
             {
-                var result = _mapper.Map<Picture>(projectForAddDto);
-                _unitOfWork.PictureDal.Add(result);
+                var mappedProject = _mapper.Map<Project>(projectForAddDto);
+                _unitOfWork.ProjectDal.Add(mappedProject);
+                _unitOfWork.Commit();
+                foreach (var item in projectForAddDto.Pictures)
+                {
+                    var result = _mapper.Map<Picture>(projectForAddDto);
+                    _unitOfWork.PictureDal.Add(result);
+                }
+                var project = _unitOfWork.ProjectDal.GetAll().SingleOrDefault(x => x.ProjectId == mappedProject.ProjectId);
+                var response = _mapper.Map<ProjectForAddResponse>(project);
+                return new SuccessDataResult<ProjectForAddResponse>(response, Messages.DataSuccessfullyAdded);
             }
-            var project = _unitOfWork.ProjectDal.GetAll().SingleOrDefault(x => x.ProjectId == mappedProject.ProjectId);
-            var response = _mapper.Map<ProjectForAddResponse>(project);
-            return response;
-        }
-
-        public void DeleteProject(int id)
-        {
-            var project = _unitOfWork.ProjectDal.Get().SingleOrDefault(x => x.ProjectId == id);
-            project.IsDeleted = true;
-            _unitOfWork.ProjectDal.Update(project);
-
-            var picture = _unitOfWork.PictureDal.Get().Where(x => x.ProjectId == id).ToList();
-            foreach (var item in picture)
+            catch (Exception)
             {
-                item.IsDeleted = true;
-            }
-            _unitOfWork.PictureDal.UpdateRange(picture);
-            _unitOfWork.Commit();
-        }
 
-        public List<ProjectForGetDto> GetAll()
-        {
-            var result = _unitOfWork.ProjectDal.GetAll();
-            var mappedProject = _mapper.Map<List<ProjectForGetDto>>(result);
+                return new ErrorDataResult<ProjectForAddResponse>(Messages.ErrorOccured);
+            }
             
-            return mappedProject;
         }
 
-        public ProjectForGetDto GetById(int id)
+        public IResult DeleteProject(int id)
         {
-            var result = _unitOfWork.ProjectDal.GetAll().SingleOrDefault(x=>x.ProjectId==id);
-            var mappedProject = _mapper.Map<ProjectForGetDto>(result);
-            return mappedProject;
+            try
+            {
+                var project = _unitOfWork.ProjectDal.Get().SingleOrDefault(x => x.ProjectId == id);
+                project.IsDeleted = true;
+                _unitOfWork.ProjectDal.Update(project);
+
+                var picture = _unitOfWork.PictureDal.Get().Where(x => x.ProjectId == id).ToList();
+                foreach (var item in picture)
+                {
+                    item.IsDeleted = true;
+                }
+                _unitOfWork.PictureDal.UpdateRange(picture);
+                _unitOfWork.Commit();
+                return new SuccessResult(Messages.DataDeleted);
+            }
+            catch (Exception)
+            {
+
+                return new ErrorResult(Messages.ErrorOccured);
+            }
+            
         }
 
-        public ProjectForUpdateDto UpdateProject(ProjectForUpdateDto projectForUpdateDto)
+        public IDataResult<List<ProjectForGetDto>> GetAll()
         {
-            var mappedProject = _mapper.Map<Project>(projectForUpdateDto);
-            _unitOfWork.ProjectDal.Update(mappedProject);
-            _unitOfWork.Commit();
-
-            var deletedPicture = _unitOfWork.PictureDal.Get(x => x.ProjectId == projectForUpdateDto.ProjectId);
-            foreach (var item in deletedPicture)
+            try
             {
-                _unitOfWork.PictureDal.Delete(item);
-                _unitOfWork.Commit();
-            }
+                var result = _unitOfWork.ProjectDal.GetAll();
+                var mappedProject = _mapper.Map<List<ProjectForGetDto>>(result);
 
-            PictureForAddDto pictureForAddDto = new PictureForAddDto();
-            foreach (var item in projectForUpdateDto.Pictures)
-            {
-                pictureForAddDto = new PictureForAddDto { PicturePath = item.PicturePath, ProjectId = mappedProject.ProjectId };
-                _pictureService.AddPicture(pictureForAddDto);
-                _unitOfWork.Commit();
+                return new SuccessDataResult<List<ProjectForGetDto>>(mappedProject,Messages.DatasListedSuccessfully);
             }
-            return projectForUpdateDto;
+            catch (Exception)
+            {
+                return new ErrorDataResult<List<ProjectForGetDto>>(Messages.ErrorOccured);
+            }
+           
+        }
+
+        public IDataResult<ProjectForGetDto> GetById(int id)
+        {
+            try
+            {
+                var result = _unitOfWork.ProjectDal.GetAll().SingleOrDefault(x => x.ProjectId == id);
+                var mappedProject = _mapper.Map<ProjectForGetDto>(result);
+                return new SuccessDataResult<ProjectForGetDto>(mappedProject, Messages.DataListedSuccessfully);
+            }
+            catch (Exception)
+            {
+                return new ErrorDataResult<ProjectForGetDto>(Messages.ErrorOccured);
+            }
+            
+        }
+
+        public IDataResult<ProjectForUpdateDto> UpdateProject(ProjectForUpdateDto projectForUpdateDto)
+        {
+            try
+            {
+                var mappedProject = _mapper.Map<Project>(projectForUpdateDto);
+                _unitOfWork.ProjectDal.Update(mappedProject);
+                _unitOfWork.Commit();
+
+                var deletedPicture = _unitOfWork.PictureDal.Get(x => x.ProjectId == projectForUpdateDto.ProjectId);
+                foreach (var item in deletedPicture)
+                {
+                    _unitOfWork.PictureDal.Delete(item);
+                    _unitOfWork.Commit();
+                }
+
+                PictureForAddDto pictureForAddDto = new PictureForAddDto();
+                foreach (var item in projectForUpdateDto.Pictures)
+                {
+                    pictureForAddDto = new PictureForAddDto { PicturePath = item.PicturePath, ProjectId = mappedProject.ProjectId };
+                    _pictureService.AddPicture(pictureForAddDto);
+                    _unitOfWork.Commit();
+                }
+                return new SuccessDataResult<ProjectForUpdateDto>(projectForUpdateDto, Messages.DataUpdated);
+            }
+            catch (Exception)
+            {
+                return new ErrorDataResult<ProjectForUpdateDto>(Messages.ErrorOccured);
+            }
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using career.DTO.Responces;
+﻿using career.DAL.Utilities.Results;
+using career.DTO.Responces;
 using career.DTO.Utility;
 using career.DTO.VacancyDTO;
 using System;
@@ -11,11 +12,11 @@ namespace career.BLL.Abstract
 {
     public interface IVacancyService
     {
-        List<VacanciesDto> GetVacancies();
-        List<FilterDTO> GetAllWithFilter();
-        VacanciesDto GetVacancyById(int id);
-        VacancyForAddResponse AddVacancy(VacancyAddDto vacancyAddDto);
-        VacancyForUpdateResponse UpdateVacancy(VacancyUpdateDto vacancyUpdateDto);
-        void DeleteVacancy(int id);
+        IDataResult<List<VacanciesDto>> GetVacancies();
+        IDataResult<List<FilterDTO>> GetAllWithFilter();
+        IDataResult<VacanciesDto> GetVacancyById(int id);
+        IDataResult<VacancyForAddResponse> AddVacancy(VacancyAddDto vacancyAddDto);
+        IDataResult<VacancyForUpdateResponse> UpdateVacancy(VacancyUpdateDto vacancyUpdateDto);
+        IResult DeleteVacancy(int id);
     }
 }

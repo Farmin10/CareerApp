@@ -89,8 +89,8 @@ namespace career.API.Controllers
         [HttpDelete("delete")]
         public IActionResult DeleteProject(int id)
         {
-            _projectService.DeleteProject(id);
-            return Ok();
+            var result= _projectService.DeleteProject(id);
+            return Ok(result);
         }
     }
 }

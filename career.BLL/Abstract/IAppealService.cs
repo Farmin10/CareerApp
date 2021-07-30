@@ -1,4 +1,5 @@
-﻿using career.DTO.AppealDTO;
+﻿using career.DAL.Utilities.Results;
+using career.DTO.AppealDTO;
 using career.DTO.Responces;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace career.BLL.Abstract
 {
     public interface IAppealService
     {
-        List<AppealForGetDto> GetAppeals();
-        AppealForAddResponse  AddAppeal(AppealForAddDto appealForAddDto);
-        List<AppealForGetDto>  GetAppealByVacancyId(int vacancyId);
-        AppealForUpdateResponse  UpdateAppeal(AppealForUpdateDto appealForUpdateDto);
-        void Delete(int id);
+        IDataResult<List<AppealForGetDto>> GetAppeals();
+        IDataResult<AppealForAddResponse>  AddAppeal(AppealForAddDto appealForAddDto);
+        IDataResult<List<AppealForGetDto>>  GetAppealByVacancyId(int vacancyId);
+        IDataResult<AppealForUpdateResponse>  UpdateAppeal(AppealForUpdateDto appealForUpdateDto);
+        IResult Delete(int id);
     }
 }

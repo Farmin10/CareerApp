@@ -1,4 +1,5 @@
-﻿using career.DTO.Responses;
+﻿using career.DAL.Utilities.Results;
+using career.DTO.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace career.BLL.Abstract
 {
     public interface ICountService
     {
-        CountResponse Count();
+        IDataResult<CountResponse> Count();
     }
 }

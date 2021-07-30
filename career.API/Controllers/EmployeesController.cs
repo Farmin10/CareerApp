@@ -3,6 +3,7 @@ using career.DTO.EmployeeDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Sentry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace career.API.Controllers
     public class EmployeesController : ControllerBase
     {
         IEmployeeService _employeeService;
+        private readonly IHub _sentryHub;
 
-        public EmployeesController(IEmployeeService employeeService)
+        public EmployeesController(IEmployeeService employeeService, IHub sentryHub)
         {
             _employeeService = employeeService;
+            _sentryHub = sentryHub;
         }
 
 
@@ -28,7 +31,7 @@ namespace career.API.Controllers
         [HttpGet("getAll")]
         public IActionResult GetAll()
         {
-            var result = _employeeService.GetAll();
+            var result =_employeeService.GetAll();
             return Ok(result);
         }
 
@@ -74,8 +77,8 @@ namespace career.API.Controllers
         [HttpDelete("delete")]
         public IActionResult Delete(int id)
         {
-            _employeeService.DeleteEmployee(id);
-            return Ok();
+           var result= _employeeService.DeleteEmployee(id);
+            return Ok(result);
         }
     }
 }

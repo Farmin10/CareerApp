@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using career.BLL.Abstract;
+using career.BLL.Constants;
 using career.DAL.DataAccess;
+using career.DAL.Utilities.Results;
 using career.DTO.DepartmantDTO;
 using career.DTO.EmployeeDTO;
 using career.DTO.PositionDTO;
@@ -34,14 +36,14 @@ namespace career.BLL.Concrete
             return mappedDepartmant;
         }
 
-        public List<FilterDTO> GetAllWithFilter()
+        public IDataResult<List<FilterDTO>> GetAllWithFilter()
         {
             var result = _unitOfWork.DepartmantDal.Get();
 
             var mappedDepartmant = _mapper.Map<List<FilterDTO>>(result);
 
 
-            return mappedDepartmant;
+            return new SuccessDataResult<List<FilterDTO>>(mappedDepartmant,Messages.DatasListedSuccessfully);
         }
     }
 }

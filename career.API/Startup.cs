@@ -29,6 +29,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Sentry.AspNetCore;
+using Sentry.Extensibility;
 
 namespace career.API
 {
@@ -46,10 +48,9 @@ namespace career.API
         {
 
             services.AddControllers();
-            services.AddDbContext<CareerContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<CareerContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
 
             services.AddTransient<CareerContext>();
 
@@ -105,6 +106,8 @@ namespace career.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSentryTracing();
 
             app.UseCors();
 

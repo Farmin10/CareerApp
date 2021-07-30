@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using career.BLL.Abstract;
+using career.BLL.Constants;
 using career.DAL.DataAccess;
+using career.DAL.Utilities.Results;
 using career.DTO.Utility;
 using System;
 using System.Collections.Generic;
@@ -20,12 +22,12 @@ namespace career.BLL.Concrete
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public List<FilterDTO> GetPositionFilters()
+        public IDataResult<List<FilterDTO>> GetPositionFilters()
         {
             var result = _unitOfWork.PositionDal.Get();
 
             var mappedPosition = _mapper.Map<List<FilterDTO>>(result);
-            return mappedPosition;
+            return new SuccessDataResult<List<FilterDTO>>(mappedPosition,Messages.DataListedSuccessfully);
         }
     }
 }

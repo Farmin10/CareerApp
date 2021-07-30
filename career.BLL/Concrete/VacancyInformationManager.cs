@@ -20,9 +20,5 @@ namespace career.BLL.Concrete
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-
-       
-
-        
     }
 }
